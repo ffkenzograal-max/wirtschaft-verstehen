@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Понимание экономики (Wirtschaft verstehen) - WU Wien</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --text-dark: #0f172a;
+            --primary-color: #00407A; /* WU Corporate Blue */
+            --primary-light: #e0f2fe;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+            
+            --note-bg: #f0f9ff;
+            --note-border: #0ea5e9;
+            --note-text: #0369a1;
+            
+            --tip-bg: #f0fdf4;
+            --tip-border: #22c55e;
+            --tip-text: #15803d;
+            
+            --warn-bg: #fffbeb;
+            --warn-border: #f59e0b;
+            --warn-text: #b45309;
+            
+            --danger-bg: #fef2f2;
+            --danger-border: #ef4444;
+            --danger-text: #b91c1c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar-logo span {
+            color: #38bdf8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-item {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px 15px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            padding-left: 20px;
+        }
+        
+        .sidebar-link.active {
+            border-left: 4px solid #38bdf8;
+            background-color: rgba(2, 132, 199, 0.15);
+        }
+
+        /* Main Content Area */
+        .main-wrapper {
+            margin-left: 280px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background-color: #fff;
+            padding: 50px 60px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Reading progress bar */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #0ea5e9;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            margin-top: 1.6em;
+            margin-bottom: 0.6em;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            margin-top: 1.8em;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 1.5em;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        /* Highlighting keywords like in textbook */
+        strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #e11d48;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #1e293b;
+        }
+
+        pre code {
+            color: #f1f5f9;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            padding: 5px;
+            background: #fff;
+        }
+
+        /* Beautiful cards for Callouts / Alerts */
+        .callout {
+            margin: 25px 0;
+            padding: 20px 24px;
+            border-left: 5px solid #64748b;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+
+        .callout-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .callout-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .callout-note {
+            background-color: var(--note-bg);
+            border-left-color: var(--note-border);
+            color: #0c4a6e;
+        }
+        .callout-note .callout-title {
+            color: var(--note-text);
+        }
+
+        .callout-tip {
+            background-color: var(--tip-bg);
+            border-left-color: var(--tip-border);
+            color: #052e16;
+        }
+        .callout-tip .callout-title {
+            color: var(--tip-text);
+        }
+
+        .callout-warning {
+            background-color: var(--warn-bg);
+            border-left-color: var(--warn-border);
+            color: #451a03;
+        }
+        .callout-warning .callout-title {
+            color: var(--warn-text);
+        }
+
+        .callout-danger {
+            background-color: var(--danger-bg);
+            border-left-color: var(--danger-border);
+            color: #450a0a;
+        }
+        .callout-danger .callout-title {
+            color: var(--danger-text);
+        }
+
+        /* Beautiful Premium Tables */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 35px 0;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 50px 0;
+        }
+        
+        .math {
+            font-size: 1.1rem;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 15px 20px;
+            }
+            .sidebar-logo {
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            .sidebar-link {
+                padding: 8px 12px;
+            }
+            .sidebar-link.active {
+                border-left: none;
+                border-bottom: 3px solid #38bdf8;
+            }
+            .main-wrapper {
+                margin-left: 0;
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .progress-bar-container {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="readingProgress"></div>
+    </div>
+    
+    <div class="sidebar">
+        <div class="sidebar-logo">WU Wien <span>Пособие</span></div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item"><a href="README.html" class="sidebar-link" id="link-README">📖 Введение и Содержание</a></li>
+            <li class="sidebar-item"><a href="chapter_1.html" class="sidebar-link" id="link-chapter_1">Раздел 1: Введение</a></li>
+            <li class="sidebar-item"><a href="chapter_2.html" class="sidebar-link" id="link-chapter_2">Раздел 2: Общество и среда</a></li>
+            <li class="sidebar-item"><a href="chapter_3.html" class="sidebar-link" id="link-chapter_3">Раздел 3: Управление фирмой</a></li>
+            <li class="sidebar-item"><a href="chapter_4.html" class="sidebar-link" id="link-chapter_4">Раздел 4: Цифровизация</a></li>
+            <li class="sidebar-item"><a href="chapter_5.html" class="sidebar-link" id="link-chapter_5">Раздел 5: Заключение</a></li>
+            <li class="sidebar-item"><a href="quiz.html" class="sidebar-link" id="link-quiz">🎓 Интерактивный тест (Selbsttest)</a></li>
+        </ul>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="container">
+<h1 id="wirtschaft-verstehen">Понимание экономики (Wirtschaft verstehen)</h1>
+<h3 id="was-wirtschaften-im-allgemeinen-und-fur-unternehmen-im-besonderen-bedeutet">Что экономическая деятельность означает в целом и для предприятий в частности (Was Wirtschaften im Allgemeinen und für Unternehmen im Besonderen bedeutet)</h3>
+<p>Добро пожаловать в перевод учебного пособия по подготовке к вступительному экзамену (Aufnahmeverfahren) на программу бакалавриата «Экономические и социальные науки» (Wirtschafts- und Sozialwissenschaften) Венского экономического университета (Wirtschaftsuniversität Wien) на 2026/27 учебный год.</p>
+<p>Этот перевод выполнен с особым упором на академическую точность и <strong>сохранение оригинальной немецкой терминологии</strong> в скобках. Это позволяет вам изучать материал на русском языке, одновременно запоминая точные немецкие термины и формулировки, которые встретятся в экзаменационных вопросах.</p>
+<hr />
+<h2 id="inhaltsverzeichnis">Содержание (Inhaltsverzeichnis)</h2>
+<ol>
+<li><strong><a href="file:///C:/Users/Gemat/.gemini/antigravity/scratch/wu_wirtschaft_verstehen_translation/chapter_1.html">Глава 1: Почему мы ведем хозяйственную деятельность и что это значит</a> (Warum wir wirtschaften und was Wirtschaften bedeutet)</strong> — <em>Страницы 5–30</em></li>
+<li>Каждый человек — часть экономики (Jeder Mensch ist Teil der Wirtschaft)</li>
+<li>Разделение труда и специализация (Arbeitsteilung und Spezialisierung)</li>
+<li>Принятие решений и ограниченность ресурсов (Knappe Ressourcen &amp; Entscheidungen)</li>
+<li>Экономический кругооборот (Wirtschaftskreislauf)</li>
+<li>Деньги как средство обмена (Geld als Tauschmittel)</li>
+<li>Рыночные механизмы: спрос, предложение и конкуренция (Angebot und Nachfrage, Wettbewerbsformen)</li>
+<li>
+<p>Процентные ставки и инфляция (Zinsen und Inflation)</p>
+</li>
+<li>
+<p><strong><a href="file:///C:/Users/Gemat/.gemini/antigravity/scratch/wu_wirtschaft_verstehen_translation/chapter_2.html">Глава 2: Экономика как часть общества и окружающей среды</a> (Wirtschaft als Teil der Gesellschaft und Umwelt)</strong> — <em>Страницы 31–47</em></p>
+</li>
+<li>Встроенность экономики в общество и природу (Einbettung der Wirtschaft)</li>
+<li>Устойчивое развитие и циркулярная экономика (Nachhaltigkeit &amp; Kreislaufwirtschaft)</li>
+<li>Разделение роста и экологического вреда (Entkopplung)</li>
+<li>Планетарные границы (Erdsystemgrenzen / Planetary Boundaries)</li>
+<li>
+<p>Социальное благополучие и счастье (Soziales Wohlbefinden)</p>
+</li>
+<li>
+<p><strong><a href="file:///C:/Users/Gemat/.gemini/antigravity/scratch/wu_wirtschaft_verstehen_translation/chapter_3.html">Глава 3: Что экономическая деятельность означает для предприятий</a> (Was Wirtschaften für Unternehmen bedeutet)</strong> — <em>Страницы 48–82</em></p>
+</li>
+<li>Что такое предприятие (Was ist ein Unternehmen)</li>
+<li>Организационно-правовые формы (Rechtsformen: Einzelunternehmen, OG, KG, GmbH, AG, Genossenschaft)</li>
+<li>Финансирование предприятий (Eigen- und Fremdfinanzierung, Innen- und Außenfinanzierung)</li>
+<li>Бухгалтерский учет и отчетность (Rechnungswesen: Bilanz, G&amp;V, Cashflow, Kostenrechnung)</li>
+<li>
+<p>Маркетинг и его инструменты (Marketing Mix: Product, Price, Place, Promotion)</p>
+</li>
+<li>
+<p><strong><a href="file:///C:/Users/Gemat/.gemini/antigravity/scratch/wu_wirtschaft_verstehen_translation/chapter_4.html">Глава 4: Цифровизация и сетевое взаимодействие экономики и общества</a> (Digitalisierung und Vernetzung von Wirtschaft und Gesellschaft)</strong> — <em>Страницы 83–102</em></p>
+</li>
+<li>Цифровая трансформация (Digitale Transformation)</li>
+<li>Бизнес-модели и источники доходов (Geschäfts- und Erlösmodelle)</li>
+<li>Интернет как платформа и архитектура клиент-сервер (Client-Server-Architektur)</li>
+<li>
+<p>Экономическая информатика (Wirtschaftsinformatik)</p>
+</li>
+<li>
+<p><strong><a href="file:///C:/Users/Gemat/.gemini/antigravity/scratch/wu_wirtschaft_verstehen_translation/chapter_5.html">Глава 5: Заключительные замечания и использованные источники</a> (Abschließende Bemerkungen und verwendete Quellen)</strong> — <em>Страницы 103–105</em></p>
+</li>
+</ol>
+<hr />
+<h2 id="_1">Как пользоваться этим пособием</h2>
+<ul>
+<li><strong>Термины в скобках</strong>: Все ключевые экономические понятия продублированы на немецком языке. Например: <em>альтернативные издержки (Opportunitätskosten)</em>. При подготовке обязательно сопоставляйте русское определение с немецким термином.</li>
+<li><strong>Выделение важных блоков</strong>:</li>
+</ul>
+<div class="callout callout-note"><div class="callout-title">📘 Определение / Понятие</div><div class="callout-content">Этим блоком выделены важные определения и концепции, которые обязательны для понимания и часто проверяются в тестах.</div></div>
+<!-- -->
+
+<div class="callout callout-tip"><div class="callout-title">💡 Пример / Цифры и факты</div><div class="callout-content">Этот блок содержит важные статистические данные, примеры или формулы для расчетов (например, расчет точки безубыточности).</div></div>
+        </div>
+    </div>
+    
+    <script>
+        // Set active link in sidebar based on current URL filename
+        const filename = window.location.pathname.split("/").pop();
+        if (filename) {
+            const cleanName = filename.split(".")[0];
+            const activeLink = document.getElementById("link-" + cleanName);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        } else {
+            document.getElementById("link-README").classList.add("active");
+        }
+
+        // Reading progress tracker
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        });
+    </script>
+</body>
+</html>

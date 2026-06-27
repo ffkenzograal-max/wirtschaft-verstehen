@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Понимание экономики (Wirtschaft verstehen) - WU Wien</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --text-dark: #0f172a;
+            --primary-color: #00407A; /* WU Corporate Blue */
+            --primary-light: #e0f2fe;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+            
+            --note-bg: #f0f9ff;
+            --note-border: #0ea5e9;
+            --note-text: #0369a1;
+            
+            --tip-bg: #f0fdf4;
+            --tip-border: #22c55e;
+            --tip-text: #15803d;
+            
+            --warn-bg: #fffbeb;
+            --warn-border: #f59e0b;
+            --warn-text: #b45309;
+            
+            --danger-bg: #fef2f2;
+            --danger-border: #ef4444;
+            --danger-text: #b91c1c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar-logo span {
+            color: #38bdf8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-item {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px 15px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            padding-left: 20px;
+        }
+        
+        .sidebar-link.active {
+            border-left: 4px solid #38bdf8;
+            background-color: rgba(2, 132, 199, 0.15);
+        }
+
+        /* Main Content Area */
+        .main-wrapper {
+            margin-left: 280px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background-color: #fff;
+            padding: 50px 60px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Reading progress bar */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #0ea5e9;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            margin-top: 1.6em;
+            margin-bottom: 0.6em;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            margin-top: 1.8em;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 1.5em;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        /* Highlighting keywords like in textbook */
+        strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #e11d48;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #1e293b;
+        }
+
+        pre code {
+            color: #f1f5f9;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            padding: 5px;
+            background: #fff;
+        }
+
+        /* Beautiful cards for Callouts / Alerts */
+        .callout {
+            margin: 25px 0;
+            padding: 20px 24px;
+            border-left: 5px solid #64748b;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+
+        .callout-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .callout-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .callout-note {
+            background-color: var(--note-bg);
+            border-left-color: var(--note-border);
+            color: #0c4a6e;
+        }
+        .callout-note .callout-title {
+            color: var(--note-text);
+        }
+
+        .callout-tip {
+            background-color: var(--tip-bg);
+            border-left-color: var(--tip-border);
+            color: #052e16;
+        }
+        .callout-tip .callout-title {
+            color: var(--tip-text);
+        }
+
+        .callout-warning {
+            background-color: var(--warn-bg);
+            border-left-color: var(--warn-border);
+            color: #451a03;
+        }
+        .callout-warning .callout-title {
+            color: var(--warn-text);
+        }
+
+        .callout-danger {
+            background-color: var(--danger-bg);
+            border-left-color: var(--danger-border);
+            color: #450a0a;
+        }
+        .callout-danger .callout-title {
+            color: var(--danger-text);
+        }
+
+        /* Beautiful Premium Tables */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 35px 0;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 50px 0;
+        }
+        
+        .math {
+            font-size: 1.1rem;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 15px 20px;
+            }
+            .sidebar-logo {
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            .sidebar-link {
+                padding: 8px 12px;
+            }
+            .sidebar-link.active {
+                border-left: none;
+                border-bottom: 3px solid #38bdf8;
+            }
+            .main-wrapper {
+                margin-left: 0;
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .progress-bar-container {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="readingProgress"></div>
+    </div>
+    
+    <div class="sidebar">
+        <div class="sidebar-logo">WU Wien <span>Пособие</span></div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item"><a href="README.html" class="sidebar-link" id="link-README">📖 Введение и Содержание</a></li>
+            <li class="sidebar-item"><a href="chapter_1.html" class="sidebar-link" id="link-chapter_1">Раздел 1: Введение</a></li>
+            <li class="sidebar-item"><a href="chapter_2.html" class="sidebar-link" id="link-chapter_2">Раздел 2: Общество и среда</a></li>
+            <li class="sidebar-item"><a href="chapter_3.html" class="sidebar-link" id="link-chapter_3">Раздел 3: Управление фирмой</a></li>
+            <li class="sidebar-item"><a href="chapter_4.html" class="sidebar-link" id="link-chapter_4">Раздел 4: Цифровизация</a></li>
+            <li class="sidebar-item"><a href="chapter_5.html" class="sidebar-link" id="link-chapter_5">Раздел 5: Заключение</a></li>
+            <li class="sidebar-item"><a href="quiz.html" class="sidebar-link" id="link-quiz">🎓 Интерактивный тест (Selbsttest)</a></li>
+        </ul>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="container">
+<h1 id="5-abschlieende-bemerkungen-und-verwendete-quellen">Глава 5: Заключительные замечания и использованные источники (Abschließende Bemerkungen und verwendete Quellen)</h1>
+<p>Сущность экономики, экономические явления и взаимосвязи также являются предметом научного изучения. Наука представляет собой «динамическую систему общезначимых утверждений о реальных фактах (феноменах)» (Lechner, Egger &amp; Schauer 2003), которая описывает эти факты, исследует взаимосвязи и находит объяснения.</p>
+<p><strong>Экономические науки (Wirtschaftswissenschaften)</strong> изучают экономику как единое целое, и в особенности — решения и поведение отдельных людей (как членов частных домохозяйств) и предприятий, направленные на использование их ограниченных ресурсов для удовлетворения потребностей. Экономические науки включают несколько дисциплин, среди которых особое место занимают:</p>
+<ul>
+<li><strong>Социально-экономические науки / Социоэкономика (Sozioökonomie)</strong>: исследует взаимосвязи между экономическими и социальными действиями и их влияние на общество, экономику и окружающую среду. Она анализирует, как взаимодействуют и влияют друг на друга экономические структуры, социальные процессы и культурные ценности. При этом во внимание принимаются экологические и институциональные рамки для формирования целостного понимания общества и экономики. Цель дисциплины — понять сложные связи между индивидуальными решениями, общественным развитием и глобальными вызовами, а также найти решения для устойчивого и справедливого будущего.</li>
+<li><strong>Микроэкономика (Mikroökonomie)</strong>: фокусируется на решениях и поведении отдельных экономических субъектов — домохозяйств и предприятий, а также на их взаимодействии. Она изучает, например, как ведут себя домохозяйства, когда предприятия снижают или повышают цены на определенные блага. Влияние снижения цен или налоговых льгот на покупку электромобилей или велосипедов на потребительские решения покупателей служит типичным примером микроэкономического анализа.</li>
+<li><strong>Макроэкономика (Makroökonomie)</strong>: рассматривает экономику как единое целое, например, экономическую активность всех субъектов целой страны или экономического региона. Она объединяет однородных участников (например, все домохозяйства) и их действия (сбережения, потребление) в <strong>агрегированные показатели (Aggregatgrößen)</strong>. Ключевыми макроэкономическими показателями являются: экономический результат (производство) и его динамика, экономический рост, безработица, динамика цен и процентных ставок, сбережения, потребление и инвестиции в стране или регионе.</li>
+<li><strong>Экономика предприятия (Betriebswirtschaftslehre, BWL)</strong>: изучает процессы создания ценности на уровне отдельных предприятий. Разумеется, микро- и макроэкономические знания имеют важное значение для экономики предприятия (и наоборот), так как они определяют внешнюю среду, в которой действуют компании, и влияют на их решения. Также для предприятий важны технические, экологические, социологические и юридические аспекты.</li>
+<li><strong>Экономическая информатика (Wirtschaftsinformatik)</strong>: сопровождает эти темы с междисциплинарной точки зрения. Центральную роль в ней играют информационно-коммуникационные технологии и информационные системы, которые влияют на поведение людей в обществе и поддерживают предприятия в их деятельности. Дисциплина охватывает также этические вопросы проектирования цифровых систем, вопросы управления информационными системами (IT-менеджмент), дизайн систем, а также технические аспекты безопасности, криптографии и анализа данных.</li>
+</ul>
+<hr />
+<h3 id="_1">Заключение</h3>
+<p>В данном учебном пособии были освещены вопросы о том, что представляет собой экономическая деятельность, почему мы все в ней участвуем и что она означает для предприятий в частности. Фокус был сделан на следующих темах:</p>
+<ul>
+<li>Сущность и разнообразие предприятий.</li>
+<li>Организационно-правовые формы компаний.</li>
+<li>Варианты и источники финансирования.</li>
+<li>Ключевые разделы бухгалтерского учета и отчетности.</li>
+<li>Инструменты маркетинга.</li>
+</ul>
+<p>Для полного понимания работы бизнеса и достижения успеха компаниям также необходимы знания в других областях, которые были лишь упомянуты или не рассматривались подробно:</p>
+<ul>
+<li>Закупки и складское хозяйство (Beschaffung und Lagerung).</li>
+<li>Инвестиционные расчеты (Investitionsrechnung) как основа для принятия решений об инвестициях.</li>
+<li>Управление персоналом (Personalmanagement).</li>
+</ul>
+<hr />
+<h2 id="quellen">Список использованных источников (Quellen)</h2>
+<ul>
+<li><strong>Chancel, L., P. Bothe and T. Voituriez (2023)</strong>. <em>Climate inequality report 2023, Fair taxes for a sustainable future in the global South</em>, World Inequality Lab (WIL).</li>
+<li><strong>Coote, A. (2021)</strong>. <em>"Universal basic services and sustainable consumption."</em> Sustainability: Science, Practice and Policy 17(1): 32-46.</li>
+<li><strong>Fanning, A. L., D. W. O'Neill and M. Büchs (2020)</strong>. <em>"Provisioning systems for a good life within planetary boundaries."</em> Global Environmental Change 64: 102135.</li>
+<li><strong>Fuhrmann, Bettina (2019)</strong>. <em>Introduction to Business and Economics</em>. Westermann – Jugend&amp;Volk Verlag, 2019.</li>
+<li><strong>Goodwin, N., J. M. Harris, J. A. Nelson, P. J. Rajkarnikar, B. Roach and M. Torras (2022)</strong>. <em>Macroeconomics in context</em>, Routledge.</li>
+<li><strong>Gough, I. (2017)</strong>. <em>Heat, greed and human need: Climate change, capitalism and sustainable wellbeing</em>, Edward Elgar Publishing.</li>
+<li><strong>Haberl, H., D. Wiedenhofer, D. Virág, G. Kalt, B. Plank, P. Brockway, T. Fishman, D. Hausknost, F. Krausmann, B. Leon-Gruchalski, A. Mayer, M. Pichler, A. Schaffartzik, T. Sousa, J. Streeck and F. Creutzig (2020)</strong>. <em>"A systematic review of the evidence on decoupling of GDP, resource use and GHG emissions, part II: synthesizing the insights."</em> Environmental Research Letters 15(6): 065003.</li>
+<li><strong>Hall, Dave / Jones, Rob / Raffo, Carlo / Anderton, Alain (2010)</strong>. <em>Business Studies</em>. Pearson Education.</li>
+<li><strong>Hansen, H.R., Mendling, J. &amp; Neumann, G. (2019)</strong>. <em>Wirtschaftsinformatik</em> (12. Auflage). De Gruyter Oldenbourg. https://doi.org/10.1515/9783110608731</li>
+<li><strong>Helliwell, J. F., Layard, R., Sachs, J. D., De Neve, J. E., Aknin, L. B., &amp; Wang, S. (2025)</strong>. <em>World happiness report 2025</em>.</li>
+<li><strong>Hickel, J. (2020)</strong>. <em>"Quantifying national responsibility for climate breakdown: an equality-based attribution approach for carbon dioxide emissions in excess of the planetary boundary."</em> The Lancet Planetary Health 4(9): e399-e404.</li>
+<li><strong>Kitzmann, Niklas, et al. (2025)</strong>. <em>"Planetary Health Check 2025: A Scientific Assessment of the State of the Planet."</em></li>
+<li><strong>Kreuzer, Christian (2019)</strong>. <em>BWL Kompakt</em>. Linde Verlag.</li>
+<li><strong>Laudon, K.C., Laudon, J.P. &amp; Schoder, D. (2016)</strong>. <em>Wirtschaftsinformatik</em>. (3. Auflage). Pearson.</li>
+<li><strong>Lechner, Karl / Egger, Anton / Schauer, Reinbert (2016)</strong>. <em>Einführung in die Allgemeine Betriebswirtschaftslehre</em>. Linde Verlag.</li>
+<li><strong>Lee, H., K. Calvin, D. Dasgupta, G. Krinner, A. Mukherji, P. Thorne, C. Trisos, J. Romero, P. Aldunce and K. Barret (2023)</strong>. <em>IPCC, 2023: Climate Change 2023: Synthesis Report, Summary for Policymakers</em>. IPCC, Geneva, Switzerland.</li>
+<li><strong>Leimeister, J.M. (2021)</strong>. <em>Einführung in die Wirtschaftsinformatik</em> (13. Auflage). Springer Gabler. https://doi.org/10.1007/978-3- 662-63560-5</li>
+<li><strong>Neumayer, E. (1999)</strong>. <em>Weak versus strong sustainability</em>. Cheltenham, Edward Elgar.</li>
+<li><strong>Novy, A., R. Bärnthaler and M. Prieler (2023)</strong>. <em>Zukunftsfähiges Wirtschaften: Herausforderungen der sozialökologischen Transformation</em>.</li>
+<li><strong>Fanning, Andrew L., and Kate Raworth (2025)</strong>. <em>"Doughnut of social and planetary boundaries monitors a world out of balance."</em> Nature 646.8083 (2025): 47-56.</li>
+<li><strong>Samuelson, Paul A. / Nordhaus, William D. (2017)</strong>. <em>Volkswirtschaftslehre</em>. FinanzBuch Verlag.</li>
+<li><strong>Schneider, Wilfried / Schneider, Dieter (2019)</strong>. <em>Einführung in die Systeme des Rechnungswesens</em>. Facultas.</li>
+<li><strong>Sowell, Thomas (2015)</strong>. <em>Basic Economics. A Common Sense Guide to the Economy</em>. Basic Books.</li>
+<li><strong>Thommen, Jean-Paul / Achleitner, Ann-Kristin (2023)</strong>. <em>Allgemeine Betriebswirtschaftslehre</em>. Gabler Verlag.</li>
+<li><strong>Van Praag, Bernard MS, and Ada Ferrer-i-Carbonell (2004)</strong>. <em>Happiness quantified: A satisfaction calculus approach</em>. Oxford University Press, 2004.</li>
+<li><strong>Verbist, G., M. Forster and M. Vaalavuo (2012)</strong>. <em>The impact of publicly provided services on the distribution of resources: Review of new results and methods</em>.</li>
+<li><strong>Zioga, M., Kotz, M., &amp; Levermann, A. (2024)</strong>. <em>Observed carbon decoupling of subnational production insufficient for net-zero goal by 2050</em>. Proceedings of the National Academy of Sciences, 121(45).</li>
+</ul>
+        </div>
+    </div>
+    
+    <script>
+        // Set active link in sidebar based on current URL filename
+        const filename = window.location.pathname.split("/").pop();
+        if (filename) {
+            const cleanName = filename.split(".")[0];
+            const activeLink = document.getElementById("link-" + cleanName);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        } else {
+            document.getElementById("link-README").classList.add("active");
+        }
+
+        // Reading progress tracker
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        });
+    </script>
+</body>
+</html>

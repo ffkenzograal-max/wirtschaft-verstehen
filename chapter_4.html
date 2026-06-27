@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Понимание экономики (Wirtschaft verstehen) - WU Wien</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --text-dark: #0f172a;
+            --primary-color: #00407A; /* WU Corporate Blue */
+            --primary-light: #e0f2fe;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+            
+            --note-bg: #f0f9ff;
+            --note-border: #0ea5e9;
+            --note-text: #0369a1;
+            
+            --tip-bg: #f0fdf4;
+            --tip-border: #22c55e;
+            --tip-text: #15803d;
+            
+            --warn-bg: #fffbeb;
+            --warn-border: #f59e0b;
+            --warn-text: #b45309;
+            
+            --danger-bg: #fef2f2;
+            --danger-border: #ef4444;
+            --danger-text: #b91c1c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar-logo span {
+            color: #38bdf8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-item {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px 15px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            padding-left: 20px;
+        }
+        
+        .sidebar-link.active {
+            border-left: 4px solid #38bdf8;
+            background-color: rgba(2, 132, 199, 0.15);
+        }
+
+        /* Main Content Area */
+        .main-wrapper {
+            margin-left: 280px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background-color: #fff;
+            padding: 50px 60px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Reading progress bar */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #0ea5e9;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            margin-top: 1.6em;
+            margin-bottom: 0.6em;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            margin-top: 1.8em;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 1.5em;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        /* Highlighting keywords like in textbook */
+        strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #e11d48;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #1e293b;
+        }
+
+        pre code {
+            color: #f1f5f9;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            padding: 5px;
+            background: #fff;
+        }
+
+        /* Beautiful cards for Callouts / Alerts */
+        .callout {
+            margin: 25px 0;
+            padding: 20px 24px;
+            border-left: 5px solid #64748b;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+
+        .callout-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .callout-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .callout-note {
+            background-color: var(--note-bg);
+            border-left-color: var(--note-border);
+            color: #0c4a6e;
+        }
+        .callout-note .callout-title {
+            color: var(--note-text);
+        }
+
+        .callout-tip {
+            background-color: var(--tip-bg);
+            border-left-color: var(--tip-border);
+            color: #052e16;
+        }
+        .callout-tip .callout-title {
+            color: var(--tip-text);
+        }
+
+        .callout-warning {
+            background-color: var(--warn-bg);
+            border-left-color: var(--warn-border);
+            color: #451a03;
+        }
+        .callout-warning .callout-title {
+            color: var(--warn-text);
+        }
+
+        .callout-danger {
+            background-color: var(--danger-bg);
+            border-left-color: var(--danger-border);
+            color: #450a0a;
+        }
+        .callout-danger .callout-title {
+            color: var(--danger-text);
+        }
+
+        /* Beautiful Premium Tables */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 35px 0;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 50px 0;
+        }
+        
+        .math {
+            font-size: 1.1rem;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 15px 20px;
+            }
+            .sidebar-logo {
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            .sidebar-link {
+                padding: 8px 12px;
+            }
+            .sidebar-link.active {
+                border-left: none;
+                border-bottom: 3px solid #38bdf8;
+            }
+            .main-wrapper {
+                margin-left: 0;
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .progress-bar-container {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="readingProgress"></div>
+    </div>
+    
+    <div class="sidebar">
+        <div class="sidebar-logo">WU Wien <span>Пособие</span></div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item"><a href="README.html" class="sidebar-link" id="link-README">📖 Введение и Содержание</a></li>
+            <li class="sidebar-item"><a href="chapter_1.html" class="sidebar-link" id="link-chapter_1">Раздел 1: Введение</a></li>
+            <li class="sidebar-item"><a href="chapter_2.html" class="sidebar-link" id="link-chapter_2">Раздел 2: Общество и среда</a></li>
+            <li class="sidebar-item"><a href="chapter_3.html" class="sidebar-link" id="link-chapter_3">Раздел 3: Управление фирмой</a></li>
+            <li class="sidebar-item"><a href="chapter_4.html" class="sidebar-link" id="link-chapter_4">Раздел 4: Цифровизация</a></li>
+            <li class="sidebar-item"><a href="chapter_5.html" class="sidebar-link" id="link-chapter_5">Раздел 5: Заключение</a></li>
+            <li class="sidebar-item"><a href="quiz.html" class="sidebar-link" id="link-quiz">🎓 Интерактивный тест (Selbsttest)</a></li>
+        </ul>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="container">
+<h1 id="4-digitalisierung-und-vernetzung-von-wirtschaft-und-gesellschaft">Глава 4: Цифровизация и сетевое взаимодействие экономики и общества (Digitalisierung und Vernetzung von Wirtschaft und Gesellschaft)</h1>
+<p>Если вспомнить пример из первой главы и представить типичное утро рабочего дня, становится ясно, как быстро мы вступаем в контакт с технологиями. Нас будит будильник, настроенный на оптимальную фазу сна на основе цифровых измерений. Мы чистим зубы «умной» зубной щеткой, которая распознает, достаточно ли тщательно и с правильным ли давлением мы их почистили. За завтраком мы слушаем музыку через стриминговый сервис на смартфоне, который автоматически подключается к беспроводной акустической системе. Наконец, интеллектуальная система отопления фиксирует, что мы покинули квартиру, и на основе прогноза погоды и нашего личного календаря устанавливает оптимальную температуру, чтобы к нашему возвращению дома не было холодно. Мы повсеместно соприкасаемся с цифровыми системами. Без информационно-коммуникационных технологий это было бы невозможно.</p>
+<p>Эта тенденция продолжается и в корпоративном мире: в супермаркетах системы автоматически фиксируют остатки товаров и при необходимости заказывают их. Службы доставки используют системы позиционирования и уведомлений, чтобы оперативно сообщать клиентам о своем местоположении. В производстве цифровые системы управляют технологическими процессами на заводе, быстро выявляют проблемы и реагируют на них. Во всех этих сферах используются различные цифровые системы для автоматизации, оптимизации или поддержки рабочих процессов.</p>
+<p>Сегодня трудно найти сферу, в которой человек вообще не соприкасался бы с технологиями. Мы часто этого даже не замечаем. Английский термин <strong>«ubiquitous computing»</strong> (повсеместные / вездесущие вычисления — <em>Allgegenwärtigkeit von Rechensystemen</em>) сегодня актуален как никогда. Именно эти вопросы изучает дисциплина <strong>«Экономическая информатика» (Wirtschaftsinformatik)</strong>. Она исследует, как технологии могут поддерживать нас и какое влияние они оказывают на общество, экономику и личную жизнь.</p>
+<hr />
+<h2 id="41-digitale-transformation">4.1 Цифровая трансформация (Digitale Transformation)</h2>
+<p>Применение технологий меняет то, как предприятия ведут бизнес. Это касается управления внутренними процессами для повышения эффективности, взаимодействия с клиентами и создания новых продуктов и услуг.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое цифровизация и цифровая трансформация?</div><div class="callout-content"><strong>Цифровизация (Digitalisierung)</strong> — это применение цифровых информационно-коммуникационных технологий.
+<strong>Цифровая трансформация (digitale Transformation)</strong> — это изменения в экономике, государственном управлении и частной жизни, вызванные этим применением.</div></div>
+<p>Возможности изменений на предприятии можно проиллюстрировать с помощью трех измерений цифровизации (по данным Leimeister 2021):</p>
+<pre><code>                     Потребитель / Клиент (externer Fokus - frontstage)
+                                     ^
+                                     |
+                                     |     [Умные продукты и услуги]
+                                     |            (Smarte Produkte)
+                                     |           /
+                                     |          /
+                                     |         /
+                                     |        /
+                                     |       /
+                                     |      /
+                                     |     L
+                                     +---------------------------------&gt; Бизнес-процессы
+                                                                 (interner Fokus - backstage)
+</code></pre>
+<ol>
+<li><strong>Цифровые процессы (digitale Prozesse)</strong>: Внутренний фокус предприятия («за кулисами» — <em>backstage</em>). Направлен на эффективное использование ресурсов для создания добавочной стоимости. Бизнес-процессы поддерживаются, расширяются и управляются цифровыми системами. Возникает цифровой бизнес-процесс.</li>
+<li><strong>Цифровой пользователь / потребитель (digitaler Nutzer / Konsument)</strong>: Внешний фокус предприятия (<em>frontstage</em>). Представляет собой связь между клиентами и компанией. Включает разработку предложений с учетом требований и потребностей пользователей (физических лиц, других компаний или госструктур). Цифровизация позволяет точнее и эффективнее учитывать индивидуальные пожелания клиентов.</li>
+<li><strong>«Умные» продукты и услуги (smarte Produkte und Dienstleistungen)</strong>: Результат создания добавочной стоимости, расширенный за счет технологий. Это может быть как простое цифровое дополнение (например, инструкция по сборке конструктора Lego в формате PDF вместо бумажной версии), так и глубокое изменение клиентского опыта (интерактивные цифровые миссии для наборов Lego, меняющие процесс игры и повышающие привязанность к продукту).</li>
+</ol>
+<p>Слияние этих трех измерений формирует <strong>цифровой бизнес (Digital Business)</strong>.</p>
+<hr />
+<h3 id="-">Бизнес-процессы</h3>
+<p>Основой цифровизации процессов является их четкое описание.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое бизнес-процесс? (Was ist ein Geschäftsprozess?)</div><div class="callout-content">Бизнес-процесс — это сложный рабочий процесс, состоящий из нескольких логически связанных действий, выполнение которых вносит вклад в достижение конкретной экономической цели предприятия. Процессы повторяемы, имеют четко определенное начало и один или несколько концов.</div></div>
+<p>Фиксация и описание процесса в цифровой системе называется <strong>документированием (Dokumentation)</strong>. Визуальное представление процесса называют <strong>моделью процесса (Prozessmodell)</strong>. Она помогает сотрудникам (например, новым стажерам) быстро понять, как устроены закупки, сбыт или иные функции.</p>
+<ul>
+<li><em>Пример цифрового процесса</em>: Оформление онлайн-заказа в Thalia (www.thalia.at). Заказ автоматически обрабатывается системой, склад получает уведомление о необходимости собрать товар, сотрудники проверяют его наличие, готовят к отправке или выдаче в магазине, а клиент получает автоматические уведомления о статусе. Процесс завершается выдачей или доставкой товара, после чего система помечает заказ как выполненный.</li>
+<li><em>Пример цифровизации работы с клиентами</em>: Использование 3D-сканеров стопы в обувной сети Humanic (www.humanic.net). Сканер создает трехмерное изображение стопы покупателя и сохраняет его в личном кабинете. При онлайн-заказе или покупке в магазине система автоматически сверяет форму стопы с выбранной моделью обуви, подбирая идеальный размер и избавляя клиента от необходимости примерки и возврата товаров.</li>
+</ul>
+<hr />
+<h2 id="42-neue-produkte-dienstleistungen">4.2 Новые продукты, услуги и бизнес-модели (Neue Produkte, Dienstleistungen...)</h2>
+<p>Цифровизация изменила привычные нам вещи: покупка билета на общественный транспорт в Вене осуществляется через приложение Wiener Linien; покупка продуктов питания — через онлайн-доставку (Gurkerl, Flink, Mjam) или интернет-магазины супермаркетов (Billa, Hofer, Interspar). Технологии создают новые бизнес-модели.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое бизнес-модель? (Was ist ein Geschäftsmodell?)</div><div class="callout-content">Бизнес-модель описывает, как предприятие на основе бизнес-идеи производит, предоставляет и продает продукт или услугу, чтобы в результате сопоставления использованных ресурсов и доходов получать прибыль (создавать добавочную стоимость).</div></div>
+<p>Связь между использованием IT и созданием ценности (по Leimeister 2021) представлена на схеме:</p>
+<p><img alt="Abbildung 29" src="images/abbildung_29.png" /></p>
+<p>IT позволяет масштабировать ценность: например, охватывать больше клиентов или предлагать индивидуализированные продукты.</p>
+<ul>
+<li><em>Пример трансформации бизнес-моделей в музыкальной индустрии</em>: В 2000 году доминировала продажа физических носителей (CD). Компания <em>Apple</em> совершила революцию, создав связку из плеера iPod и магазина <em>iTunes Store</em>, где можно было легально покупать отдельные песни вместо целых альбомов. Позже <em>Spotify</em> снова изменил эту модель, предложив вместо покупки треков потоковую трансляцию (<strong>стриминг</strong>) по подписке (Abonnentenmodell), предоставив миллионам пользователей доступ ко всей мировой библиотеке музыки за фиксированную ежемесячную плату.</li>
+</ul>
+<hr />
+<h3 id="-_1">Цифровые бизнес-модели</h3>
+<ol>
+<li><strong>Интернет-магазин (Webshop)</strong>: прямая продажа товаров клиентам (Amazon.de, Zalando.de).</li>
+<li><strong>Онлайн-маркетплейс / Торговая площадка (Online-Handelsplatz)</strong>: платформа, предоставляющая среду для встреч покупателей и продавцов (включая частных лиц), где владелец площадки берет комиссию или плату за размещение объявлений (willhaben.at, eBay.de).</li>
+<li><strong>Социальная сеть (soziales Netzwerk)</strong>: виртуальное пространство для общения пользователей (Facebook, X, LinkedIn), зарабатывающее в основном на продаже рекламных площадей.</li>
+</ol>
+<h3 id="_1">Типы компаний по присутствию в сети</h3>
+<ul>
+<li><strong>Pure-Play</strong>: компании, работающие исключительно в интернете и не имеющие физических филиалов для обслуживания клиентов (интернет-магазины, маркетплейсы).</li>
+<li><strong>Clicks and Mortar</strong>: компании, сочетающие традиционные физические магазины с цифровым присутствием (веб-сайт, онлайн-магазин, мобильное приложение), например, книжная сеть Thalia.</li>
+</ul>
+<hr />
+<h3 id="erlosmodelle">Источники доходов в интернете (Erlösmodelle)</h3>
+<div class="callout callout-note"><div class="callout-title">📘 Модель получения доходов (Erlösmodell)</div><div class="callout-content">Определяет, каким образом предприятие зарабатывает деньги, генерирует выручку и получает прибыль.</div></div>
+<p>Две основные модели получения доходов в эпоху цифровизации:</p>
+<ol>
+<li>
+<p><strong>Рекламная модель (Werbemodell)</strong>: Сайт предоставляет бесплатный контент или сервисы (Google, социальные сети, поисковые порталы Geizhals или Willhaben) для привлечения большого числа посетителей, а зарабатывает на показе рекламы рекламодателей.</p>
+<ul>
+<li><em>AdWords</em>: продажа ключевых слов при поиске (Google).</li>
+<li><em>AdSense</em>: размещение контекстной рекламы на сторонних ресурсах.</li>
+<li><em>Баннерная реклама (Bannerwerbung)</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Модель подписки (Abonnentenmodell)</strong>: Взимание регулярной (ежемесячной/ежегодной) платы за доступ к части или всем услугам компании (Netflix, Spotify, подписки на цифровые версии газет).</p>
+</li>
+</ol>
+<div class="callout callout-tip"><div class="callout-title">💡 Пример масштаба рекламной модели</div><div class="callout-content">Квартальная выручка корпорации Alphabet (материнская компания Google) в 2023 году составила 86,3 млрд долларов США, из которых <strong>65,5 млрд долларов США (около 75%)</strong> принесла реклама.</div></div>
+<ul>
+<li><em>Пример перехода на модель подписки</em>: Компания <em>Adobe</em> (ПО для работы с графикой и видео) в 2013 году полностью свернула продажу бессрочных лицензий на свои программы (Photoshop, Premiere) за разовую плату и перешла на модель подписки <em>Creative Cloud</em>, требующую ежемесячных платежей.</li>
+</ul>
+<p><img alt="Abbildung 30" src="images/abbildung_30.png" /></p>
+<p><img alt="Abbildung 31" src="images/abbildung_31.png" /></p>
+<p><img alt="Abbildung 32" src="images/abbildung_32.png" /></p>
+<hr />
+<h2 id="43-das-internet-als-plattform">4.3 Интернет как платформа для предприятий (Das Internet als Plattform...)</h2>
+<p>Центральным элементом цифровизации является Интернет.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое сеть? (Was ist ein Netzwerk / Rechnernetz?)</div><div class="callout-content">Это пространственно распределенная система станций передачи данных (компьютеров, планшетов, смартфонов), соединенных между собой коммуникационными устройствами и каналами связи для обмена данными. Канал связи может быть проводным или беспроводным (Wi-Fi).
+<strong>Интернет (Internet)</strong> — это глобальная физическая сеть сетей, связывающая компьютеры по всему миру посредством оптоволоконных кабелей, проложенных по дну океанов, спутниковых систем и локальных провайдеров.</div></div>
+<hr />
+<h3 id="world-wide-web-www">Отличие Интернета от World Wide Web (WWW)</h3>
+<p>В повседневной жизни эти понятия часто используют как синонимы, что неверно:</p>
+<ul>
+<li><strong>Интернет (Internet)</strong> — это глобальная физическая сеть (инфраструктура). Через нее работают многие службы: электронная почта (E-Mail), мессенджеры (WhatsApp), файловые хранилища и World Wide Web.</li>
+<li><strong>World Wide Web (WWW / Web)</strong> — это информационная служба (приложение), работающая поверх инфраструктуры Интернета. Она позволяет представлять информацию в виде веб-страниц, осуществлять транзакции и искать данные. Браузер (Web-Browser) служит интерфейсом доступа к WWW.</li>
+</ul>
+<p>WWW был изобретен <strong>Тимом Бернерсом-Ли</strong> в 1989 году во время его работы в CERN (Женева). В 1990 году он опубликовал предложение по систематизации информации в сети — «Information Management: A Proposal».</p>
+<p>Три фундаментальные технологии, лежащие в основе работы WWW:</p>
+<ol>
+<li><strong>HTTP (Hypertext Transfer Protocol)</strong>: Протокол передачи гипертекста. Задает правила, по которым браузер запрашивает файлы у сервера, а сервер их отправляет.</li>
+<li><strong>HTML (Hypertext Markup Language)</strong>: Язык разметки гипертекста. Используется для структурирования и отображения контента веб-страниц в браузере.</li>
+<li><strong>URL (Uniform Resource Locator)</strong>: Единый указатель ресурса. Уникальный адрес, используемый для нахождения информации в сети.</li>
+</ol>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое протокол? (Was ist ein Protokoll?)</div><div class="callout-content">В сфере IT под протоколом понимают <strong>коммуникационный протокол (Kommunikationsprotokoll)</strong>. Это набор точных правил и соглашений, определяющих, как компьютеры должны общаться друг с другом (формат сообщений, структура ответов, кодировка символов). Аналог в реальной жизни — правила оформления почтовых конвертов (указание адресата, адреса отправителя и индекса).</div></div>
+<p>Связующими элементами веб-страниц являются <strong>гиперссылки (Hyperlinks / Links)</strong>, которые ведут на другие ресурсы, создавая единую сеть документов.</p>
+<hr />
+<h3 id="-client-server-architektur">Клиент-серверная архитектура (Client-Server-Architektur)</h3>
+<p>Браузер отправляет запрос (<strong>Request</strong>) серверу. Сервер (<strong>Server</strong>) — это компьютер, физически установленный в серверной комнате и ожидающий запросов из сети. На нем работает специальное программное обеспечение (<strong>серверное ПО — Server Software</strong>), которое обрабатывает запрос и отправляет браузеру ответ (<strong>Response</strong>), содержащий HTML-код веб-страницы или сообщение об ошибке.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Клиент-серверная архитектура (Client-Server-Architektur)</div><div class="callout-content">Модель взаимодействия компьютеров в сети, разделяющая участников на:
+<ul>
+<li><strong>Клиентов (Clients)</strong>: запрашивают услуги или данные (например, веб-браузер).</li>
+<li><strong>Серверов (Servers)</strong>: предоставляют услуги или данные клиентам.</li>
+</ul></div></div>
+<p>Возможность предоставления услуг в цифровой сети формирует <strong>интернет-экономику (Internetökonomie)</strong> — сферу экономической деятельности, использующую Интернет для проведения транзакций и создания ценности.</p>
+<ul>
+<li><em>Пример</em>: Портал <em>Refurbed</em> (www.refurbed.at) предоставляет цифровой маркетплейс для продажи восстановленной электроники. Сама платформа не владеет товарами, она объединяет предложения профессиональных продавцов и предоставляет интерфейс для покупателей, гарантируя безопасность сделки. Аналогичным маркетплейсом является австрийский портал объявлений <em>Willhaben</em> (www.willhaben.at).</li>
+</ul>
+<hr />
+<h2 id="44-wirtschaftsinformatik">4.4 Экономическая информатика как комплексная дисциплина (Wirtschaftsinformatik...)</h2>
+<p><strong>Экономическая информатика (Wirtschaftsinformatik)</strong> изучает проектирование информационных систем, вопросы управления технологиями в бизнесе и этические последствия их внедрения.</p>
+<h3 id="_2">Междисциплинарный характер дисциплины</h3>
+<p>Экономическая информатика находится на стыке двух наук: <strong>экономики предприятия (Betriebswirtschaftslehre)</strong> и <strong>информатики (Informatik)</strong>.</p>
+<p><img alt="Abbildung 34" src="images/abbildung_34.png" /></p>
+<p>В зависимости от угла зрения информационные системы изучаются в рамках двух подходов (перспектив):</p>
+<ol>
+<li>
+<p><strong>Технический подход (техническая перспектива — <em>technische Sichtweise</em>)</strong>: включает дисциплины:</p>
+<ul>
+<li><em>Управление производством (Produktionsmanagement / Operations Management)</em>: управление процессами производства, логистическими цепочками (Supply Chain) и запасами.</li>
+<li><em>Информатика (Informatik)</em>: разработка ПО (Software Engineering), семантическая паутина (Semantic Web), проектирование баз данных и алгоритмов.</li>
+<li><em>Наука о данных (Data Science)</em>: работа с массивами данных сверхбольших объемов (<strong>Big Data / Open Data</strong>), статистика, машинное обучение и искусственный интеллект (AI/ML) для прогнозирования и принятия решений.</li>
+</ul>
+</li>
+<li>
+<p><strong>Поведенческий подход (поведенческая перспектива — <em>verhaltenswissenschaftliche Sichtweise</em>)</strong>: рассматривает влияние систем на человека и общество. Включает дисциплины:</p>
+<ul>
+<li><em>Экономика предприятия (Betriebswirtschaftslehre)</em>: использование технологий для повышения эффективности процессов и создания ценности, вопросы управления (Management), кибербезопасность, соблюдение законов о защите данных (Datenschutz).</li>
+<li><em>Социология (Soziologie)</em>: влияние групп и организаций на проектирование систем и обратное влияние систем на общество.</li>
+<li><em>Психология (Psychologie)</em>: человек как центральный компонент систем. Проектирование с учетом эмоций и потребностей людей, этические вопросы внедрения технологий, концепции <strong>цифрового гуманизма (Digital Humanism)</strong> и этичных вычислений (Ethical Computing).</li>
+</ul>
+</li>
+</ol>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое экономическая информатика как наука?</div><div class="callout-content">Предметом изучения экономической информатики являются информационные системы в экономике, государственном управлении и частной сфере. Дисциплина охватывает все виды деятельности, связанные с разработкой, внедрением, эксплуатацией, использованием и выводом из эксплуатации информационных систем.</div></div>
+<hr />
+<h3 id="_3">Прикладные и информационные системы</h3>
+<ul>
+<li><strong>Прикладная система / Прикладная программа (Anwendungssystem)</strong>: Состоит из программного обеспечения (<strong>приложений — Anwendungssoftware</strong>), обрабатываемых данных (в базе данных) и аппаратной инфраструктуры (серверы, компьютеры), предназначенных для решения конкретной прикладной задачи (например, программа бухгалтерского учета, складская программа, Excel). В корпоративном контексте прикладные системы часто требуют индивидуальной адаптации (кастомизации) под нужды компании, что является сложным и дорогостоящим процессом.</li>
+<li><strong>Информационная система (Informationssystem)</strong>:</li>
+</ul>
+<div class="callout callout-note"><div class="callout-title">📘 Определение / Понятие</div><div class="callout-content">Информационная система — это система, созданная для конкретного предприятия, которая включает в себя различные прикладные системы и при этом интегрирована в организационную структуру и систему управления компании. Она состоит из людей и машин (компьютеров, ПО, сетей связи), которые производят, хранят, обрабатывают и используют информацию.</div></div>
+<p><img alt="Abbildung 36" src="images/abbildung_36.png" /></p>
+<p>Человек является главным элементом информационной системы, так как именно люди создают и потребляют информацию, обрабатываемую машинами.</p>
+<p>Компоненты информационной системы:</p>
+<ol>
+<li><strong>Программное обеспечение (Software)</strong>.</li>
+<li><strong>Аппаратное обеспечение (Hardware)</strong>.</li>
+<li><strong>Сети и коммуникации (Netzwerke &amp; Kommunikation)</strong>.</li>
+<li><strong>Данные (Daten)</strong>.</li>
+<li><strong>Процессы (Prozesse)</strong>.</li>
+<li><strong>Люди / Персонал (Personen)</strong>.</li>
+</ol>
+<h3 id="erp-enterprise-resource-planning-system">ERP-системы (Enterprise-Resource-Planning-System)</h3>
+<p>Классическим примером комплексной корпоративной информационной системы является <strong>ERP-система</strong>.</p>
+<p><img alt="Abbildung 37" src="images/abbildung_37.png" /></p>
+<div class="callout callout-note"><div class="callout-title">📘 ERP-система</div><div class="callout-content">Информационная система управления ресурсами предприятия, предназначенная для интеграции, автоматизации и координации ключевых бизнес-процессов компании (бухгалтерия, закупки, складской учет, производство, продажи, управление кадрами) в единой базе данных.</div></div>
+<ul>
+<li><em>Пример ERP-системы</em>: Продукты немецкой компании <strong>SAP</strong> (www.sap.com) — одного из крупнейших разработчиков корпоративного ПО в мире (создана в 1972 году). Продукты компании (SAP R/3, SAP ERP, SAP Business Suite, современная версия — <strong>SAP S/4HANA</strong>) используются тысячами предприятий по всему миру.</li>
+<li>Другие виды корпоративных систем:<ul>
+<li><strong>CRM-системы</strong> (Customer-Relationship-Management): управление взаимоотношениями с клиентами.</li>
+<li><strong>SCM-системы</strong> (Supply-Chain-Management): управление цепочками поставок.</li>
+<li><strong>BI-системы</strong> (Business-Intelligence): сбор и аналитика данных для принятия управленческих решений.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="prufungsfallen-4">🎓 Разбор экзаменационных вопросов и ловушек (Prüfungsfallen) по Главе 4</h3>
+<div class="callout callout-warning"><div class="callout-title">⚠️ Ловушка 1: Изобретатель WWW vs. Создатель Интернета (На примере Aufgabe 8c)</div><div class="callout-content"><ul>
+<li>Тим Бернерс-Ли в 1989 году изобрел <strong>World Wide Web (WWW)</strong>, работая в CERN.</li>
+<li>Он <strong>НЕ</strong> изобретал Интернет. Интернет как физическая сеть сетей существовал до WWW и служит инфраструктурой (платформой), на которой базируется WWW.</li>
+<li><em>Экзаменационный вопрос</em>: Утверждение «Tim Berners-Lee hat... das Internet erfunden» является <strong>НЕВЕРНЫМ</strong>.</li>
+</ul>
+<p><strong>Ловушка 2: Значение IP и его назначение (На примере Aufgabe 8d)</strong></p>
+<ul>
+<li><strong>IP</strong> расшифровывается как <strong>Internet Protocol</strong> (а не <em>Identification Protocol</em>).</li>
+<li>IP-адрес используется для однозначной идентификации <strong>технических устройств (компьютеров, узлов, серверов)</strong> в сети, а <strong>не конкретных людей (Personen)</strong>.</li>
+<li><em>Экзаменационный вопрос</em>: Утверждение «Das Internet verwendet... das "Identification Protocol (IP)" um... Personen in einem Netzwerk zu identifizieren» является <strong>НЕВЕРНЫМ</strong>.</li>
+</ul>
+<p><strong>Ловушка 3: Междисциплинарный характер и перспективы Wirtschaftsinformatik (На примере Aufgabe 4)</strong></p>
+<ul>
+<li>Экономическая информатика находится на стыке <strong>Betriebswirtschaftslehre (BWL)</strong> и <strong>Informatik</strong>. Она не связана напрямую с политологией (Politikwissenschaft) или биологией (Biologie).</li>
+<li>Существуют только <strong>две ключевые перспективы</strong> дисциплины:<ol>
+<li><strong>Техническая (technische Sichtweise)</strong>: включает <em>Produktionsmanagement</em>, <em>Informatik</em> и <em>Data Science</em>.</li>
+<li><strong>Поведенческая (verhaltenswissenschaftliche Sichtweise)</strong>: включает <em>Betriebswirtschaftslehre (BWL)</em>, <em>Soziologie</em> и <em>Psychologie</em>.</li>
+</ol>
+</li>
+<li><em>Экзаменационный вопрос</em>: Утверждение о наличии «биологической перспективы» является <strong>НЕВЕРНЫМ</strong>. Утверждение о связи с политологией — <strong>НЕВЕРНЫМ</strong>.</li>
+</ul>
+<p><strong>Ловушка 4: Измерения цифровизации (На примере Aufgabe 12)</strong></p>
+<ul>
+<li>Три измерения цифровизации (по Leimeister):<ol>
+<li><strong>Внутренний фокус (interner Fokus / backstage)</strong>: цифровые бизнес-процессы.</li>
+<li><strong>Внешний фокус (externer Fokus / frontstage)</strong>: цифровые пользователи/клиенты.</li>
+<li><strong>Результат (Output / Ergebnis)</strong>: «умные» (smarte) продукты и услуги.</li>
+</ol>
+</li>
+<li><em>Экзаменационный вопрос</em>: Утверждение о том, что измерениями цифровизации являются «мобильные устройства, серверы и облачные вычисления», является <strong>НЕВЕРНЫМ</strong> (это компоненты IT-инфраструктуры, а не измерения цифровизации).</li>
+</ul></div></div>
+        </div>
+    </div>
+    
+    <script>
+        // Set active link in sidebar based on current URL filename
+        const filename = window.location.pathname.split("/").pop();
+        if (filename) {
+            const cleanName = filename.split(".")[0];
+            const activeLink = document.getElementById("link-" + cleanName);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        } else {
+            document.getElementById("link-README").classList.add("active");
+        }
+
+        // Reading progress tracker
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        });
+    </script>
+</body>
+</html>

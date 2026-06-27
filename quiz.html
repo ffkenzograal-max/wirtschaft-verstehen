@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный тест (Selbsttest) - Wirtschaft verstehen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --text-dark: #0f172a;
+            --primary-color: #00407A;
+            --primary-light: #e0f2fe;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+            
+            --correct-bg: #f0fdf4;
+            --correct-border: #22c55e;
+            --correct-text: #166534;
+            
+            --incorrect-bg: #fef2f2;
+            --incorrect-border: #ef4444;
+            --incorrect-text: #991b1b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar-logo span {
+            color: #38bdf8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-item {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px 15px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            padding-left: 20px;
+        }
+        
+        .sidebar-link.active {
+            border-left: 4px solid #38bdf8;
+            background-color: rgba(2, 132, 199, 0.15);
+        }
+
+        .main-wrapper {
+            margin-left: 280px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background-color: #fff;
+            padding: 50px 60px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 35px;
+        }
+
+        .question-card {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+
+        .question-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .choice-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .choice-item input {
+            margin-top: 5px;
+            transform: scale(1.15);
+            cursor: pointer;
+        }
+
+        .choice-text {
+            font-size: 1.05rem;
+            color: var(--text-color);
+        }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            display: none;
+            border-left: 4px solid transparent;
+        }
+
+        .feedback-correct {
+            background-color: var(--correct-bg);
+            color: var(--correct-text);
+            border-left-color: var(--correct-border);
+        }
+
+        .feedback-incorrect {
+            background-color: var(--incorrect-bg);
+            color: var(--incorrect-text);
+            border-left-color: var(--incorrect-border);
+        }
+
+        .action-bar {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+
+        .btn-check {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-check:hover {
+            background-color: #002e5c;
+        }
+
+        .btn-reset {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-reset:hover {
+            background-color: #cbd5e1;
+        }
+
+        .score-bar {
+            position: sticky;
+            bottom: 20px;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05), 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            z-index: 10;
+        }
+
+        .score-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .score-val {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 15px 20px;
+            }
+            .sidebar-logo {
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            .sidebar-link {
+                padding: 8px 12px;
+            }
+            .sidebar-link.active {
+                border-left: none;
+                border-bottom: 3px solid #38bdf8;
+            }
+            .main-wrapper {
+                margin-left: 0;
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">WU Wien <span>Пособие</span></div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item"><a href="README.html" class="sidebar-link">📖 Введение и Содержание</a></li>
+            <li class="sidebar-item"><a href="chapter_1.html" class="sidebar-link">Раздел 1: Введение</a></li>
+            <li class="sidebar-item"><a href="chapter_2.html" class="sidebar-link">Раздел 2: Общество и среда</a></li>
+            <li class="sidebar-item"><a href="chapter_3.html" class="sidebar-link">Раздел 3: Управление фирмой</a></li>
+            <li class="sidebar-item"><a href="chapter_4.html" class="sidebar-link">Раздел 4: Цифровизация</a></li>
+            <li class="sidebar-item"><a href="chapter_5.html" class="sidebar-link">Раздел 5: Заключение</a></li>
+            <li class="sidebar-item"><a href="quiz.html" class="sidebar-link active">🎓 Интерактивный тест (Selbsttest)</a></li>
+        </ul>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="container">
+            <h1>Интерактивный тест (Selbsttest)</h1>
+            <p class="intro">Этот тест содержит все 12 экзаменационных вопросов из официальных тестов Венского экономического университета (WU Wien) по пособию «Wirtschaft verstehen». Все вопросы даны на немецком языке (как на реальном экзамене). Отметьте правильные варианты ответа (в каждом вопросе их может быть несколько) и нажмите «Проверить» для получения развернутого разбора на русском языке.</p>
+            
+            <form id="quizForm">
+<div class="question-card" id="q-card-1">
+  <div class="question-title">Aufgabe 1 (Влияние операций на Cashflow)</div>
+  <div class="question-text">Welche der folgenden Maßnahmen erhöhen kurzfristig den Cashflow der FunBike GmbH?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q1" value="a" data-correct="true">
+    <div class="choice-text">
+      a) nimmt einen Bankkredit auf
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Получение банковского кредита — это приток денежных средств (Einzahlung) от финансовой деятельности, увеличивающий Cashflow.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q1" value="b" data-correct="false">
+    <div class="choice-text">
+      b) kauft eine Maschine für €50.000 (statt Miete für €1.000/Monat)
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Покупка станка за €50 000 вызовет немедленный крупный отток средств, что снизит Cashflow в коротком периоде гораздо сильнее, чем арендная плата.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q1" value="c" data-correct="false">
+    <div class="choice-text">
+      c) emittiert Aktien
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно (экзаменационная ловушка!). FunBike является организацией формы GmbH (ООО), а не AG. ООО не имеет акций и не может их выпускать по закону.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q1" value="d" data-correct="true">
+    <div class="choice-text">
+      d) nimmt einen Gesellschafter mit Kapitaleinlage auf
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Взнос нового участника в уставный капитал — это приток средств (Einzahlung), увеличивающий Cashflow.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q1" value="e" data-correct="true">
+    <div class="choice-text">
+      e) gewährt kein Zahlungsziel mehr
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Отмена отсрочки платежей заставляет покупателей платить наличными сразу, что ускоряет и увеличивает поступления денег.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-2">
+  <div class="question-title">Aufgabe 2 (Анализ баланса FunBike GmbH)</div>
+  <div class="question-text">Welche Aussagen zur Bilanzstruktur der FunBike GmbH treffen zu?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q2" value="a" data-correct="false">
+    <div class="choice-text">
+      a) Kauf von Aktien eines anderen Unternehmens als Finanzanlage führt zu einer Veränderung des Eigenkapitals.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Покупка ценных бумаг за счет денег на банковском счете — это активный обмен (Aktivtausch). Одна статья актива растет, другая падает, валюта баланса и собственный капитал не меняются.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q2" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Die goldene Bilanzregel wird eingehalten, wenn langfristiges Anlagevermögen durch langfristiges Kapital gedeckt ist.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Золотое правило баланса требует, чтобы долгосрочные активы (Anlagevermögen) финансировались за счет долгосрочных пассивов.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q2" value="c" data-correct="true">
+    <div class="choice-text">
+      c) Die Vorräte übersteigen die Hälfte der Bilanzsumme.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Запасы составляют €5,4 млн, что больше половины общей валюты баланса (€9,638 млн).</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q2" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Bankguthaben und Barbestand ist die liquideste Position im Umlaufvermögen.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Деньги в кассе и на счете — самая быстродоступная и ликвидная позиция активов.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q2" value="e" data-correct="false">
+    <div class="choice-text">
+      e) Die Verbindlichkeiten aus Lieferungen und Leistungen zeigen, dass alle Rechnungen sofort bezahlt werden.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Наличие кредиторской задолженности доказывает, что компания покупает товары с отсрочкой платежа (auf Ziel), а не оплачивает всё мгновенно.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-3">
+  <div class="question-title">Aufgabe 3 (Экономика, природа и устойчивое развитие)</div>
+  <div class="question-text">Welche Aussagen zur ökologischen Nachhaltigkeit und Ökonomie treffen zu?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q3" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Die Wirtschaft ist ein Subsystem der Gesellschaft, die wiederum in die Biosphäre eingebettet ist.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Это фундаментальная концепция встроенности экономики в социум и природу.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q3" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Das Doughnut-Modell beschreibt einen sicheren und gerechten Raum für die Menschheit.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Внутренняя граница бублика — социальные стандарты, внешняя — экологические ограничения планеты.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q3" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Nachhaltigkeit bedeutet, dass das Wirtschaftswachstum unbegrenzt fortgeführt werden kann.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Устойчивое развитие означает удовлетворение потребностей настоящего без ущерба для будущих поколений, а не слепое неограниченное рост в условиях конечных ресурсов планеты.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q3" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Das Drei-Säulen-Modell (Ökologie, Ökonomie, Soziales) beschreibt die Dimensionen der Nachhaltigkeit.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Модель трех столпов провозглашает равнозначность экологического, экономического и социального компонентов.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q3" value="e" data-correct="false">
+    <div class="choice-text">
+      e) Mehrere Länder erfüllen bereits alle SDGs innerhalb der planetaren Grenzen.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Эмпирические данные Doughnut Monitor показывают, что сейчас ни одна страна в мире не обеспечивает все базовые социальные блага, оставаясь строго в экологических пределах планеты.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-4">
+  <div class="question-title">Aufgabe 4 (Дисциплина Wirtschaftsinformatik)</div>
+  <div class="question-text">Welche Aussagen zur Wirtschaftsinformatik als Wissenschaft treffen zu?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q4" value="a" data-correct="false">
+    <div class="choice-text">
+      a) Wirtschaftsinformatik konzentriert sich ausschließlich auf die theoretische Informatik.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Это междисциплинарная наука, объединяющая информационные технологии и бизнес-администрирование (BWL).</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q4" value="b" data-correct="false">
+    <div class="choice-text">
+      b) Wirtschaftsinformatik hat eine ausgeprägte biologische Perspektive.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. У нее две основные перспективы: техническая и поведенческая (verhaltenswissenschaftlich). Биологической нет.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q4" value="c" data-correct="true">
+    <div class="choice-text">
+      c) Die technische Sichtweise umfasst Informatik, Data Science und Produktionsmanagement.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Это три ключевых столпа технической перспективы экономической информатики.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q4" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Gegenstand der Wirtschaftsinformatik sind Informationssysteme in Wirtschaft, Verwaltung und Alltag.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Это классическое определение предмета исследования данной науки.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q4" value="e" data-correct="false">
+    <div class="choice-text">
+      e) Die Wirtschaftsinformatik befasst sich eng mit der Politikwissenschaft.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Она находится на стыке информатики (Informatik) и экономики предприятия (BWL), связи с политологией нет.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-5">
+  <div class="question-title">Aufgabe 5 (Экономика и общество)</div>
+  <div class="question-text">Welche Aussagen zu globalen ökologischen und sozialen Herausforderungen sind korrekt?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q5" value="a" data-correct="false">
+    <div class="choice-text">
+      a) Die Wirtschaft kann unabhängig von natürlichen Ressourcen existieren.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Любая экономика критически зависит от сырья, энергии, воды и экосистемных услуг природы.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q5" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Die Kreislaufwirtschaft (Circular Economy) zielt auf die Reduzierung von Abfall durch Recycling und Wiederverwendung ab.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Суть циркулярной экономики — замкнуть цепочки ресурсов и свести отходы к нулю.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q5" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Der Globale Süden trägt historisch die Hauptverantwortung für den Klimawandel.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Исторически свыше 90% избыточных выбросов CO2 приходится на страны Глобального Севера.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q5" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Das reichste 1 % der Weltbevölkerung verursacht mehr Emissionen als die ärmere Hälfte der Menschheit.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Это подтвержденные данные экологического неравенства (элитарные выбросы вдвое больше выбросов беднейших 50%).</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q5" value="e" data-correct="true">
+    <div class="choice-text">
+      e) Der Klimawandel ist eine der planetaren Grenzen, die bereits überschritten wurden.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Изменение климата входит в число нарушенных безопасных границ функционирования биосферы.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-6">
+  <div class="question-title">Aufgabe 6 (Валовой внутренний продукт - BIP)</div>
+  <div class="question-text">Welche Aussagen zum Bruttoinlandsprodukt (BIP) und seiner Messung treffen zu?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q6" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Das BIP dient als Indikator für das wirtschaftliche Wachstum.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Динамика ВВП используется для оценки темпов экономического роста.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q6" value="b" data-correct="false">
+    <div class="choice-text">
+      b) Ein sinkendes BIP bedeutet wirtschaftliches Wachstum.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Падение ВВП свидетельствует о спаде (рецессии).</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q6" value="c" data-correct="true">
+    <div class="choice-text">
+      c) Das reale BIP berücksichtigt Preisänderungen (Inflation) im Zeitverlauf.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Реальный ВВП очищен от влияния инфляции, в отличие от номинального.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q6" value="d" data-correct="false">
+    <div class="choice-text">
+      d) Das BIP erfasst unentgeltliche Haus- und Sorgearbeit in vollem Umfang.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. ВВП измеряет только рыночные операции и не учитывает неоплачиваемый домашний труд или уход за близкими.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q6" value="e" data-correct="false">
+    <div class="choice-text">
+      e) Das BIP basiert auf dem Inländerkonzept.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно (классическая ловушка!). ВВП основан на территориальном принципе (Inlandskonzept — производство внутри границ страны). На принципе гражданства (Inländerkonzept) основан ВНП/ВНД (BNP/BNE).</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-7">
+  <div class="question-title">Aufgabe 7 (Единоличное учреждение и руководство бизнесом)</div>
+  <div class="question-text">Welche Rechtsformen erlauben es in Österreich, ein Unternehmen allein zu gründen und zu leiten?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q7" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Einzelunternehmen
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. ИП создается и управляется единолично физическим лицом.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q7" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Gesellschaft mit beschränkter Haftung (GmbH) (Ein-Personen-GmbH)
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. ООО в Австрии может быть учреждено одним участником.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q7" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Offene Gesellschaft (OG)
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Открытое товарищество по закону требует минимум двух учредителей.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q7" value="d" data-correct="false">
+    <div class="choice-text">
+      d) Kommanditgesellschaft (KG)
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Требует как минимум двух лиц: комплементария и коммандитиста.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q7" value="e" data-correct="true">
+    <div class="choice-text">
+      e) Flexible Kapitalgesellschaft (FlexKapG)
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Новая форма FlexKapG также позволяет создание одним лицом.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-8">
+  <div class="question-title">Aufgabe 8 (Интернет и World Wide Web)</div>
+  <div class="question-text">Welche Aussagen zur Geschichte und Funktionsweise von Computernetzwerken stimmen?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q8" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Das Internet ist eine physische Infrastruktur, die weltweite Netzwerke verbindet.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Интернет — это сеть физических сетей и компьютеров.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q8" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Das World Wide Web (WWW) ist ein Dienst, der auf der Infrastruktur des Internets aufbaut.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. WWW использует Интернет в качестве платформы для передачи гипертекста.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q8" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Tim Berners-Lee hat das Internet erfunden.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Тим Бернерс-Ли изобрел WWW в 1989 году, а Интернет как сеть существовал задолго до этого.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q8" value="d" data-correct="false">
+    <div class="choice-text">
+      d) IP steht für Identification Protocol und dient der Identifikation von Personen im Netz.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. IP означает Internet Protocol и идентифицирует сетевые устройства (компьютеры, роутеры), а не конкретных физических лиц.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q8" value="e" data-correct="false">
+    <div class="choice-text">
+      e) Internet und WWW nutzen exakt dieselben Protokolle für alle Anwendungen.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. WWW использует протоколы прикладного уровня HTTP/HTTPS, в то время как Интернет опирается на низкоуровневый стек TCP/IP и поддерживает множество других служб (Email, FTP, VPN).</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-9">
+  <div class="question-title">Aufgabe 9 (Инфляция)</div>
+  <div class="question-text">Welche Aussagen zur Inflation und Geldpolitik treffen zu?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q9" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Inflation bezeichnet die Minderung des Geldwertes bzw. das Sinken der Kaufkraft.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Это классическое определение инфляции.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q9" value="b" data-correct="false">
+    <div class="choice-text">
+      b) Bei Inflation steigt die Kaufkraft des Geldes.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Покупательная способность падает, на ту же сумму можно купить меньше благ.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q9" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Um die Inflationsrate zu senken, sollte die Zentralbank den Leitzins senken.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Для борьбы с инфляцией ставку повышают (Leitzinserhöhung), чтобы сократить объем кредитов и сжать спрос.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q9" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Kostendruck (z.B. steigende Rohstoffpreise) kann zu Inflation führen.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Это инфляция издержек, когда рост себестоимости переносится на цены для конечных клиентов.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q9" value="e" data-correct="true">
+    <div class="choice-text">
+      e) Die EZB strebt eine mittelfristige Inflationsrate von 2 % an.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. 2% в год — официальный целевой ориентир Европейского центрального банка для ценовой стабильности.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-10">
+  <div class="question-title">Aufgabe 10 (Акции vs. Облигации)</div>
+  <div class="question-text">Welche Aussagen zum Vergleich von Aktien und Anleihen sind richtig?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q10" value="a" data-correct="false">
+    <div class="choice-text">
+      a) Wertpapiere wie Aktien und Anleihen können nach dem Kauf nicht mehr verkauft werden.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Обе бумаги свободно торгуются на вторичном рынке (бирже).</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q10" value="b" data-correct="false">
+    <div class="choice-text">
+      b) Anleihen stellen Eigenkapital dar, während Aktien Fremdkapital sind.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Акции — это собственный капитал (Eigenkapital), облигации — заемный капитал (Fremdkapital).</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q10" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Das durch Aktien eingebrachte Kapital muss am Ende einer bestimmten Laufzeit zurückgezahlt werden.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Акционерный капитал бессрочен и не подлежит возврату, в отличие от облигации, имеющей точный срок погашения.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q10" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Zinsen für Anleihen müssen unabhängig vom Gewinn oder Verlust des Unternehmens gezahlt werden.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Проценты по облигациям — это обязательство по заемному капиталу, компания обязана выплатить их при любом финансовом результате.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q10" value="e" data-correct="false">
+    <div class="choice-text">
+      e) Aktionäre haben einen gesetzlichen Anspruch auf eine jährliche feste Verzinsung.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Выплата дивидендов по акциям не гарантирована и зависит от прибыли компании и решения общего собрания.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-11">
+  <div class="question-title">Aufgabe 11 (Понятие «Wirtschaften»)</div>
+  <div class="question-text">Welche Aussagen zum Thema Wirtschaften und Ressourcenknappheit sind richtig?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q11" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Ressourcen wie Rohstoffe, Maschinen und Arbeitskraft stehen nur in begrenztem Ausmaß zur Verfügung.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Ограниченность ресурсов — ключевая предпосылка экономической деятельности.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q11" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Wirtschaften bedeutet, Entscheidungen über die Zuteilung knapper Ressourcen zu treffen.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Экономическая деятельность сводится к выбору оптимального использования ресурсов.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q11" value="c" data-correct="true">
+    <div class="choice-text">
+      c) Opportunitätskosten bezeichnen den entgangenen Nutzen der besten nicht gewählten Alternative.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Определение издержек упущенной выгоды.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q11" value="d" data-correct="true">
+    <div class="choice-text">
+      d) Nachhaltiges Wirtschaften integriert Ökologie, Ökonomie und Soziales.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Устойчивое развитие объединяет эти три аспекта.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q11" value="e" data-correct="true">
+    <div class="choice-text">
+      e) Die Notwendigkeit zu wirtschaften gilt sowohl für private Haushalte als auch für Unternehmen.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Все экономические субъекты сталкиваются с ограниченностью.</div>
+    </div>
+  </label>
+</div>
+
+<div class="question-card" id="q-card-12">
+  <div class="question-title">Aufgabe 12 (Цифровая трансформация)</div>
+  <div class="question-text">Welche Aussagen zur Digitalisierung und IT-Systemen in Unternehmen stimmen?</div>
+  <label class="choice-item">
+    <input type="checkbox" name="q12" value="a" data-correct="true">
+    <div class="choice-text">
+      a) Die Digitalisierung verändert Geschäftsmodelle und betriebliche Prozesse grundlegend.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Суть цифровой трансформации — изменение принципов ведения бизнеса.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q12" value="b" data-correct="true">
+    <div class="choice-text">
+      b) Anwendungssysteme unterstützen operative Aufgaben und Geschäftsprozesse.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Прикладные системы автоматизируют рутинные операции в компании.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q12" value="c" data-correct="false">
+    <div class="choice-text">
+      c) Die drei Dimensionen der Digitalisierung sind mobile Endgeräte, Server und Cloud Computing.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. Это компоненты технической инфраструктуры, а не измерения цифровизации по Leimeister.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q12" value="d" data-correct="false">
+    <div class="choice-text">
+      d) Informationstechnologie hat keinen Einfluss auf die Wertschöpfung von Unternehmen.
+      <div class="feedback-box feedback-incorrect">❌ Ошибка. Неверно. IT является ключевым фактором оптимизации и повышения добавочной стоимости.</div>
+    </div>
+  </label>
+  <label class="choice-item">
+    <input type="checkbox" name="q12" value="e" data-correct="true">
+    <div class="choice-text">
+      e) Die drei Dimensionen der Digitalisierung umfassen interner Fokus, externer Fokus und smarten Output.
+      <div class="feedback-box feedback-correct">✅ Правильно! Правильно. Три измерения по Leimeister: процессы (backstage), пользователи (frontstage), продукты (smart products).</div>
+    </div>
+  </label>
+</div>
+
+
+            </form>
+            
+            <div class="score-bar">
+                <div class="score-text">Ваш результат: <span class="score-val" id="scoreDisplay">0 / 12</span></div>
+                <div class="action-bar" style="margin-top:0;">
+                    <button class="btn-check" onclick="checkAllQuestions()">Проверить весь тест</button>
+                    <button class="btn-reset" onclick="resetQuiz()">Сбросить ответы</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questionsCount = 12;
+
+        function checkQuestion(qId) {
+            const card = document.getElementById('q-card-' + qId);
+            const choiceItems = card.querySelectorAll('.choice-item');
+            let isQuestionCorrect = true;
+
+            choiceItems.forEach(item => {
+                const input = item.querySelector('input');
+                const feedback = item.querySelector('.feedback-box');
+                const isChecked = input.checked;
+                const isCorrectVal = input.getAttribute('data-correct') === 'true';
+
+                // Display feedback box
+                feedback.style.display = 'block';
+
+                if (isCorrectVal) {
+                    item.style.backgroundColor = 'var(--correct-bg)';
+                    item.style.borderColor = 'var(--correct-border)';
+                    if (!isChecked) {
+                        isQuestionCorrect = false; // missed a correct option
+                    }
+                } else {
+                    if (isChecked) {
+                        item.style.backgroundColor = 'var(--incorrect-bg)';
+                        item.style.borderColor = 'var(--incorrect-border)';
+                        isQuestionCorrect = false; // selected an incorrect option
+                    } else {
+                        item.style.backgroundColor = 'transparent';
+                        item.style.borderColor = 'transparent';
+                    }
+                }
+            });
+
+            return isQuestionCorrect;
+        }
+
+        function checkAllQuestions() {
+            let correctCount = 0;
+            for (let i = 1; i <= questionsCount; i++) {
+                if (checkQuestion(i)) {
+                    correctCount++;
+                }
+            }
+            document.getElementById('scoreDisplay').innerText = correctCount + " / " + questionsCount;
+            // Scroll to score display
+            document.getElementById('scoreDisplay').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            const feedbacks = document.querySelectorAll('.feedback-box');
+            feedbacks.forEach(f => f.style.display = 'none');
+            
+            const choiceItems = document.querySelectorAll('.choice-item');
+            choiceItems.forEach(item => {
+                item.style.backgroundColor = '';
+                item.style.borderColor = '';
+            });
+
+            document.getElementById('scoreDisplay').innerText = "0 / 12";
+        }
+    </script>
+</body>
+</html>

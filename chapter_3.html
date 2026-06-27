@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Понимание экономики (Wirtschaft verstehen) - WU Wien</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --text-dark: #0f172a;
+            --primary-color: #00407A; /* WU Corporate Blue */
+            --primary-light: #e0f2fe;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+            
+            --note-bg: #f0f9ff;
+            --note-border: #0ea5e9;
+            --note-text: #0369a1;
+            
+            --tip-bg: #f0fdf4;
+            --tip-border: #22c55e;
+            --tip-text: #15803d;
+            
+            --warn-bg: #fffbeb;
+            --warn-border: #f59e0b;
+            --warn-text: #b45309;
+            
+            --danger-bg: #fef2f2;
+            --danger-border: #ef4444;
+            --danger-text: #b91c1c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .sidebar-logo span {
+            color: #38bdf8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-item {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px 15px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            padding-left: 20px;
+        }
+        
+        .sidebar-link.active {
+            border-left: 4px solid #38bdf8;
+            background-color: rgba(2, 132, 199, 0.15);
+        }
+
+        /* Main Content Area */
+        .main-wrapper {
+            margin-left: 280px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background-color: #fff;
+            padding: 50px 60px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Reading progress bar */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #0ea5e9;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            margin-top: 1.6em;
+            margin-bottom: 0.6em;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            margin-top: 1.8em;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 1.5em;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        /* Highlighting keywords like in textbook */
+        strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #e11d48;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #1e293b;
+        }
+
+        pre code {
+            color: #f1f5f9;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border-color);
+            padding: 5px;
+            background: #fff;
+        }
+
+        /* Beautiful cards for Callouts / Alerts */
+        .callout {
+            margin: 25px 0;
+            padding: 20px 24px;
+            border-left: 5px solid #64748b;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+
+        .callout-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .callout-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .callout-note {
+            background-color: var(--note-bg);
+            border-left-color: var(--note-border);
+            color: #0c4a6e;
+        }
+        .callout-note .callout-title {
+            color: var(--note-text);
+        }
+
+        .callout-tip {
+            background-color: var(--tip-bg);
+            border-left-color: var(--tip-border);
+            color: #052e16;
+        }
+        .callout-tip .callout-title {
+            color: var(--tip-text);
+        }
+
+        .callout-warning {
+            background-color: var(--warn-bg);
+            border-left-color: var(--warn-border);
+            color: #451a03;
+        }
+        .callout-warning .callout-title {
+            color: var(--warn-text);
+        }
+
+        .callout-danger {
+            background-color: var(--danger-bg);
+            border-left-color: var(--danger-border);
+            color: #450a0a;
+        }
+        .callout-danger .callout-title {
+            color: var(--danger-text);
+        }
+
+        /* Beautiful Premium Tables */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 35px 0;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 50px 0;
+        }
+        
+        .math {
+            font-size: 1.1rem;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 15px 20px;
+            }
+            .sidebar-logo {
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            .sidebar-link {
+                padding: 8px 12px;
+            }
+            .sidebar-link.active {
+                border-left: none;
+                border-bottom: 3px solid #38bdf8;
+            }
+            .main-wrapper {
+                margin-left: 0;
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .progress-bar-container {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="readingProgress"></div>
+    </div>
+    
+    <div class="sidebar">
+        <div class="sidebar-logo">WU Wien <span>Пособие</span></div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item"><a href="README.html" class="sidebar-link" id="link-README">📖 Введение и Содержание</a></li>
+            <li class="sidebar-item"><a href="chapter_1.html" class="sidebar-link" id="link-chapter_1">Раздел 1: Введение</a></li>
+            <li class="sidebar-item"><a href="chapter_2.html" class="sidebar-link" id="link-chapter_2">Раздел 2: Общество и среда</a></li>
+            <li class="sidebar-item"><a href="chapter_3.html" class="sidebar-link" id="link-chapter_3">Раздел 3: Управление фирмой</a></li>
+            <li class="sidebar-item"><a href="chapter_4.html" class="sidebar-link" id="link-chapter_4">Раздел 4: Цифровизация</a></li>
+            <li class="sidebar-item"><a href="chapter_5.html" class="sidebar-link" id="link-chapter_5">Раздел 5: Заключение</a></li>
+            <li class="sidebar-item"><a href="quiz.html" class="sidebar-link" id="link-quiz">🎓 Интерактивный тест (Selbsttest)</a></li>
+        </ul>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="container">
+<h1 id="3-was-wirtschaften-fur-unternehmen-bedeutet">Глава 3: Что экономическая деятельность означает для предприятий (Was Wirtschaften für Unternehmen bedeutet)</h1>
+<p>Предприятия ведут экономическую деятельность в условиях, схожих с условиями частных домохозяйств. Они точно так же сталкиваются с проблемой ограниченности ресурсов и должны тщательно планировать их использование. У них нет неограниченного количества денег или средств производства. Устойчивое ведение хозяйства важно для долгосрочного существования и успеха предприятия ничуть не меньше, чем для домохозяйства.</p>
+<p>Предприятия должны планировать свои потребности и следить за наличием финансовых средств. Их финансовые цели схожи с целями домохозяйств: обеспечение платежеспособности, формирование резервов на случай чрезвычайных ситуаций, выгодное инвестирование и привлечение финансирования на оптимальных условиях. Однако хозяйственная деятельность предприятий имеет свою специфику и в большинстве случаев является гораздо более сложной. Эти вопросы подробно изучает дисциплина <strong>«Экономика и управление предприятием» (Betriebswirtschaftslehre, BWL)</strong>.</p>
+<hr />
+<h2 id="31-was-ist-ein-unternehmen">3.1 Что такое предприятие и какие виды предприятий существуют? (Was ist ein Unternehmen...)</h2>
+<div class="callout callout-note"><div class="callout-title">📘 Определение предприятия</div><div class="callout-content">Предприятия — это экономически самостоятельные организационные единицы, которые производят продукты и оказывают услуги для других. Их задача — выявлять или формировать потребности частных домохозяйств, других предприятий и/или государства и предлагать соответствующие блага.</div></div>
+<p>Для создания своей продукции или услуг предприятия используют:</p>
+<ul>
+<li><strong>Средства труда / Основные средства (Betriebsmittel)</strong>: оборудование, машины, недвижимость, офисное оснащение.</li>
+<li><strong>Материалы / Оборотные средства (Werkstoffe)</strong>: сырье, вспомогательные материалы, покупные полуфабрикаты.</li>
+<li><strong>Рабочую силу (Arbeitskräfte)</strong>: трудовой вклад персонала.</li>
+<li><strong>Ноу-хау и информацию (Know-how und Information)</strong>.</li>
+</ul>
+<p>Нанимая сотрудников, предприятия создают рабочие места. Конкурируя с другими фирмами, они разрабатывают инновации. </p>
+<p>Предприятия влияют на различные <strong>целевые группы (Anspruchsgruppen / Stakeholder)</strong>, от которых они также зависят:</p>
+<ol>
+<li><strong>Сотрудники (Mitarbeiter:innen)</strong>: заинтересованы в безопасных, интересных и хорошо оплачиваемых рабочих местах.</li>
+<li><strong>Поставщики (Lieferant:innen)</strong>: ожидают надежных деловых отношений и своевременной оплаты поставок.</li>
+<li><strong>Клиенты (Kund:innen)</strong>: желают получать качественные продукты и услуги по выгодной цене.</li>
+<li><strong>Собственники / Инвесторы (Eigentümer:innen, Gesellschafter:innen, Geldgeber:innen)</strong>: рассчитывают на успешное развитие компании и получение дохода на вложенный капитал.</li>
+<li><strong>Местные сообщества и государство (Gemeinde, Land)</strong>: заинтересованы в создании рабочих мест и уплате налогов, а также ожидают соблюдения экологических норм и социальной ответственности.</li>
+</ol>
+<hr />
+<h3 id="_1">Юридическое определение предприятия в Австрии</h3>
+<p>Государство устанавливает правовые рамки для бизнеса. Законодательное определение закреплено в § 1 <strong>Предпринимательского кодекса Австрии (Unternehmensgesetzbuch, UGB)</strong>:</p>
+<div class="callout callout-note"><div class="callout-title">📘 § 1(1) UGB</div><div class="callout-content">Предпринимателем (Unternehmer) является тот, кто осуществляет деятельность предприятия.
+<strong>§ 1(2) UGB</strong>: Предприятием (Unternehmen) является любая рассчитанная на долгосрочную перспективу организация самостоятельной экономической деятельности, даже если она не направлена на получение прибыли.</div></div>
+<p>Три основных признака предприятия с юридической точки зрения:</p>
+<ol>
+<li><strong>Направленность на долгосрочную перспективу (auf Dauer angelegt)</strong>: деятельность носит систематический, а не разовый характер.</li>
+<li><strong>Самостоятельная экономическая деятельность (selbstständige wirtschaftliche Tätigkeit)</strong>: осуществляется независимо и на собственный риск.</li>
+<li><strong>Необязательность прибыли</strong>: даже некоммерческие организации (Non-Profit-Organisationen, NPO) могут признаваться предприятиями, если они ведут постоянную хозяйственную деятельность.</li>
+</ol>
+<p>С экономической точки зрения предприятие теряет основу для существования, если оно не может работать хотя бы на уровне самоокупаемости (<strong>kostendeckend</strong>) и сохранять платежеспособность.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое прибыль и каково ее значение?</div><div class="callout-content"><strong>Приводя к простому знаменателю</strong>: получать прибыль (Gewinn) — значит зарабатывать больше, чем тратить (на бухгалтерском языке: доходы (<em>Erträge</em>) превышают расходы (<em>Aufwände</em>)).
+Прибыль необходима для выживания компании, поскольку она реинвестируется в производство, обеспечивая его конкурентоспособность и снижая риск <strong>банкротства / несостоятельности из-за чрезмерной задолженности (Überschuldungsgefahr)</strong> в периоды убытков.</div></div>
+<hr />
+<h3 id="wertschopfung">Добавочная стоимость (Wertschöpfung)</h3>
+<p>В процессе производства предприятия создают блага, стоимость которых превышает стоимость исходных сырья и материалов.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Добавочная стоимость (Wertschöpfung)</div><div class="callout-content">Разница между стоимостью готовой продукции предприятия (Endprodukt) и стоимостью промежуточных товаров и услуг (Vorleistungen), закупленных у внешних поставщиков.</div></div>
+<ul>
+<li><em>Пример</em>: Фирма производит велосипед рыночной стоимостью €500. Стоимость закупленных компонентов ( Vorleistungen) составляет €100. Созданная предприятием добавочная стоимость равна €400. Это не чистая прибыль предприятия, так как из этой суммы еще нужно оплатить труд сотрудников, амортизацию оборудования, налоги, аренду и т.д.</li>
+</ul>
+<p>Добавочная стоимость лежит в основе расчета ВВП страны (как сумма добавочных стоимостей всех предприятий за вычетом промежуточного потребления).</p>
+<hr />
+<h3 id="wirtschaftssektoren">Секторы экономики (Wirtschaftssektoren)</h3>
+<p>Предприятия классифицируются по трем основным секторам:</p>
+<ol>
+<li><strong>Первичный сектор (primärer Sektor)</strong>: Добыча сырья. Сюда относятся сельское и лесное хозяйство, рыболовство и горнодобывающая промышленность.</li>
+<li><strong>Вторичный сектор (sekundärer Sektor)</strong>: Переработка сырья в готовую продукцию. Включает промышленное производство (промышленность), ремесла (строительство, столярные мастерские) и энергетику.</li>
+<li><strong>Третичный сектор (tertiärer Sektor)</strong>: Сфера услуг. Включает торговлю, туризм, консалтинг (юридический, налоговый), банковское дело, страхование, здравоохранение, образование и транспорт.</li>
+</ol>
+<p>По мере развития страны доля третичного сектора в ВВП растет. В Австрии на сферу услуг приходится около <strong>70% ВВП</strong>. Первичный сектор, несмотря на важность для продовольственной безопасности, обеспечивает лишь немногим более 1% совокупного результата экономики.</p>
+<p>Предприятия также группируются по <strong>отраслям (Branchen / Wirtschaftszweige)</strong> — направлениям деятельности, в которых компании производят схожие продукты или услуги (например, строительная, фармацевтическая, туристическая, медийная отрасли).</p>
+<hr />
+<h3 id="_2">Размеры предприятий</h3>
+<p>Классификация предприятий по размеру важна для налогообложения, отчетности и получения субсидий. В ЕС используется понятие <strong>KMU</strong> (Кляйн- и Миттельунтернемен — <em>Kleinst-, kleine und mittlere Unternehmen / SMEs</em>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Категория предприятия</th>
+<th style="text-align: left;">Число сотрудников</th>
+<th style="text-align: left;">Выручка в год (Umsatz/Jahr)</th>
+<th style="text-align: left;">или</th>
+<th style="text-align: left;">Балансовая стоимость активов (Bilanzsumme)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Микропредприятия (Kleinstunternehmen)</strong></td>
+<td style="text-align: left;">до 9</td>
+<td style="text-align: left;">до €2 млн</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">до €2 млн</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Малые предприятия (kleine Unternehmen)</strong></td>
+<td style="text-align: left;">до 49</td>
+<td style="text-align: left;">до €10 млн</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">до €10 млн</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Средние предприятия (mittlere Unternehmen)</strong></td>
+<td style="text-align: left;">до 249</td>
+<td style="text-align: left;">до €50 млн</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">до €43 млн</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Крупные предприятия (große Unternehmen)</strong></td>
+<td style="text-align: left;">от 250</td>
+<td style="text-align: left;">более €50 млн</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">более €43 млн</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip"><div class="callout-title">💡 Статистика по Австрии</div><div class="callout-content"><ul>
+<li>Около 99% всех австрийских компаний относятся к сектору <strong>KMU</strong>.</li>
+<li>Около 90% из них — микропредприятия (менее 10 сотрудников).</li>
+<li>Примерно 85% предприятий имеют годовой оборот менее €1 млн.</li>
+<li>В KMU занято около 2/3 всех работающих в стране граждан.</li>
+<li>Остальную треть оборота создают около 1 900 крупных компаний (крупнейшие по выручке в Австрии: OMV, Porsche Holding, Strabag, REWE, Spar, voestalpine, Mondi, ÖBB, Andritz, Red Bull).</li>
+</ul></div></div>
+<hr />
+<h2 id="32-rechtsformen-von-unternehmen">3.2 Организационно-правовые формы предприятий (Rechtsformen von Unternehmen)</h2>
+<p>Выбор <strong>организационно-правовой формы (Rechtsform)</strong> определяет, кто руководит бизнесом, кто имеет право подписи договоров, кто предоставляет капитал и в каком объеме участники отвечают по долгам компании. Информация о зарегистрированных компаниях содержится в публичном реестре — <strong>Коммерческом регистре (Firmenbuch)</strong>.</p>
+<p><img alt="Abbildung 18" src="images/abbildung_18.png" /></p>
+<hr />
+<h3 id="1-einzelunternehmen">1. Индивидуальное предприятие (Einzelunternehmen)</h3>
+<ul>
+<li><strong>Характеристика</strong>: Компанией управляет одно физическое лицо, которое принимает все решения и несет все риски.</li>
+<li><strong>Личность и капитал</strong>: Собственник самостоятельно предоставляет весь капитал. Дополнительное финансирование обычно привлекается в виде банковских кредитов.</li>
+<li><strong>Ответственность (Haftung)</strong>:</li>
+</ul>
+<div class="callout callout-warning"><div class="callout-title">⚠️ неограниченную личную ответственность (unbeschränkte Haftung)</div><div class="callout-content">Индивидуальный предприниматель несет по обязательствам своего предприятия. Это означает, что в случае долгов взыскание может быть обращено не только на имущество фирмы (betriebliches Vermögen), но и на все личное имущество предпринимателя (Privatvermögen).</div></div>
+<p>В случае неудачи бизнеса предпринимателю-физическому лицу грозит процедура личного банкротства (<strong>потребительского банкротства — Privatkonkurs / Schuldenregulierungsverfahren</strong>).</p>
+<hr />
+<h3 id="2-personengesellschaften">2. Товарищества / Партнерства (Personengesellschaften)</h3>
+<p>Создаются при участии двух или более лиц, которые совместно вносят капитал и ведут деятельность.</p>
+<ul>
+<li><strong>Открытое торговое товарищество (Offene Gesellschaft, OG)</strong>: Все участники (партнеры) имеют право и обязанность управлять делами.</li>
+</ul>
+<div class="callout callout-warning"><div class="callout-title">⚠️ неограниченную и солидарную ответственность (solidarische Haftung)</div><div class="callout-content">Все партнеры в OG несут . Солидарная ответственность означает, что кредитор может потребовать выплаты всего долга товарищества в полном объеме с любого из партнеров по своему выбору из его личных средств.</div></div>
+<ul>
+<li><strong>Коммандитное товарищество (Kommanditgesellschaft, KG)</strong>: Включает участников двух типов:<ol>
+<li><strong>Комплементарии (Komplementäre)</strong>: действительные члены, несущие полную неограниченную личную ответственность и управляющие компанией (аналогично партнерам в OG).</li>
+<li><strong>Коммандитисты (Kommanditisten)</strong>: вкладчики, ответственность которых ограничена размером их зарегистрированного вклада в капитал (<strong>Kapitaleinlage</strong>). Они не участвуют в управлении, но имеют право контроля (проверка книг). Это позволяет привлекать партнеров с ограничением их рисков.</li>
+</ol>
+</li>
+</ul>
+<p>Товарищества обычно зависят от средств партнеров и кредитов банков, поскольку привлечение широкого круга инвесторов затруднено.</p>
+<hr />
+<h3 id="3-kapitalgesellschaften">3. Хозяйственные общества / Корпорации (Kapitalgesellschaften)</h3>
+<p>Обладают статусом <strong>юридического лица (juristische Person)</strong>: они могут самостоятельно заключать сделки, владеть имуществом, подавать иски и выступать ответчиками в суде. Их деятельность осуществляют органы управления, состоящие из физических лиц.</p>
+<ul>
+<li>
+<p><strong>Общество с ограниченной ответственностью (Gesellschaft mit beschränkter Haftung, GmbH)</strong>:</p>
+<ul>
+<li>Создается одним или несколькими участниками.</li>
+<li><strong>Уставный капитал (Stammkapital)</strong>: должен составлять не менее <strong>€10 000</strong> (минимальный порог снижен с 1 января 2024 года, ранее составлял €35 000). Минимальный вклад одного участника (<strong>Stammeinlage</strong>) — €70. Не менее половины уставного капитала должно быть внесено деньгами, остальное допускается внести имуществом (Sacheinlage: компьютеры, авто).</li>
+<li><strong>Управление</strong>: осуществляется одним или несколькими директорами (<strong>Geschäftsführer:innen</strong>), которые могут и не быть владельцами долей. Собственники получают доходы в виде распределяемой прибыли (Gewinnanteile / Dividenden) пропорционально своим долям и не отвечают по долгам GmbH своим личным имуществом (рискуют только внесенным вкладом).</li>
+</ul>
+</li>
+<li>
+<p><strong>Гибкое капитальное общество (Flexible Kapitalgesellschaft, FlexKapG)</strong>:</p>
+<ul>
+<li>Новая форма корпорации (введена в Австрии недавно), близкая к GmbH. Минимальный уставный капитал также составляет €10 000, но минимальный вклад участника снижен до <strong>€1</strong>.</li>
+<li>Позволяет выпускать <strong>доли стоимости предприятия (Unternehmenswert-Anteile)</strong> — специальный вид долей без права голоса на общем собрании, упрощающий участие сотрудников в прибыли компании.</li>
+</ul>
+</li>
+<li>
+<p><strong>Акционерное общество (Aktiengesellschaft, AG)</strong>:</p>
+<ul>
+<li><strong>Уставный капитал (Grundkapital)</strong>: должен составлять не менее <strong>€70 000</strong> и разделен на акции (<strong>Aktien</strong>). Владельцы акций называются <strong>акционерами (Aktionäre)</strong>.</li>
+<li><strong>Ответственность</strong>: акционеры не отвечают по обязательствам AG своим имуществом, они рискуют только деньгами, потраченными на покупку акций.</li>
+<li><strong>Органы управления</strong>:<ul>
+<li><strong>Правление (Vorstand)</strong>: ведет текущие дела под свою ответственность и представляет общество вовне.</li>
+<li><strong>Наблюдательный совет (Aufsichtsrat)</strong>: назначает членов правления и контролирует их деятельность.</li>
+<li><strong>Общее собрание акционеров (Hauptversammlung)</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Европейское акционерное общество (Societas Europaea, SE)</strong>:</p>
+<ul>
+<li>Разновидность акционерного общества, действующая на единых правовых основаниях на всей территории ЕС/ЕЭЗ. Удобна для компаний с филиалами в разных странах ЕС (например, концерн Strabag). Минимальный капитал составляет <strong>€120 000</strong>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="4-genossenschaften">4. Кооперативы (Genossenschaften)</h3>
+<ul>
+<li><strong>Цель</strong>: Объединение не менее двух физических или юридических лиц для содействия доходам или хозяйственной деятельности своих членов (<strong>Förderung des Erwerbs und der Wirtschaft der Mitglieder</strong>), а не получение прибыли для самой организации.</li>
+<li><em>Примеры деятельности</em>: совместное использование оборудования, совместные закупки сырья или совместный сбыт продукции.</li>
+<li><strong>Форма в Австрии</strong>: «зарегистрированный кооператив» (<strong>eingetragene Genossenschaft, e. Gen.</strong>). На европейском уровне действует аналог — <em>Societas Cooperativa Europaea (SCE)</em>.</li>
+<li><strong>Управление и особенности</strong>:<ul>
+<li>Вход новых членов и выход из кооператива максимально упрощены. Минимальный капитал законом не установлен. Члены вносят паевые взносы (Kapitaleinlage).</li>
+<li>Ответственность участников обычно ограничена размером пая или его кратной величиной (часто в двойном размере пая).</li>
+<li>Органы управления: Правление (Vorstand) и Общее собрание участников (Hauptversammlung).</li>
+<li><strong>Кооперативный принцип голосования (Kopfstimmrecht)</strong>: на собрании каждый член имеет <strong>ровно один голос</strong>, независимо от размера его паевого взноса (в отличие от AG или GmbH, где сила голоса пропорциональна капиталу).</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="firmenbuch">Коммерческий регистр (Firmenbuch)</h3>
+<p>Это центральная публичная база данных, ведение которой осуществляется судами.</p>
+<ul>
+<li>Регистрация <strong>обязательна</strong> для товариществ (OG, KG), корпораций (GmbH, AG) и кооперативов.</li>
+<li>Индивидуальные предприниматели (Einzelunternehmen) обязаны регистрироваться только при превышении объема выручки в <strong>€700 000 в год</strong> за два года подряд (или более €1 млн за один год). Ниже этого порога регистрация является добровольной.</li>
+<li>В регистре содержатся сведения о юридическом названии компании (<strong>наименование фирмы — Firma</strong>), месте нахождения (юридический адрес), целях деятельности, именах собственников/партнеров (кроме акционеров AG), размере вкладов в капитал и лицах, обладающих правом подписи и руководства (уполномоченных представлять компанию).</li>
+</ul>
+<p><strong>Таблица 2: Сводная характеристика организационно-правовых форм (Zusammenfassende Darstellung der Merkmale der verschiedenen Rechtsformen)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Признак</th>
+<th style="text-align: left;">Индивидуальное предприятие (Einzelunternehmen)</th>
+<th style="text-align: left;">Открытое товарищество (Offene Gesellschaft - OG)</th>
+<th style="text-align: left;">Коммандитное товарищество (Kommanditgesellschaft - KG)</th>
+<th style="text-align: left;">Общество с огр. ответственностью (GmbH)</th>
+<th style="text-align: left;">Акционерное общество (AG) / SE</th>
+<th style="text-align: left;">Кооператив (Genossenschaft - e.Gen.)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Кто управляет / ведет дела?</strong></td>
+<td style="text-align: left;">Индивидуальный предприниматель</td>
+<td style="text-align: left;">Все участники товарищества (минимум двое)</td>
+<td style="text-align: left;">Комплементарии (действительные члены, минимум один)</td>
+<td style="text-align: left;">Директоры (Geschäftsführer, минимум один)</td>
+<td style="text-align: left;">Правление (Vorstand)</td>
+<td style="text-align: left;">Правление (Vorstand)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Кто является участником?</strong></td>
+<td style="text-align: left;">Индивидуальный предприниматель</td>
+<td style="text-align: left;">Участники OG (минимум двое)</td>
+<td style="text-align: left;">Комплементарии (мин. один) и коммандитисты (вкладчики, мин. один)</td>
+<td style="text-align: left;">Все учредители / владельцы долей, внесшие вклады</td>
+<td style="text-align: left;">Акционеры, купившие хотя бы одну акцию</td>
+<td style="text-align: left;">Члены кооператива</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Кто предоставляет капитал?</strong></td>
+<td style="text-align: left;">Индивидуальный предприниматель</td>
+<td style="text-align: left;">Участники OG</td>
+<td style="text-align: left;">Комплементарий может внести, коммандитист обязан внести вклад</td>
+<td style="text-align: left;">Участники GmbH</td>
+<td style="text-align: left;">Акционеры путем покупки акций</td>
+<td style="text-align: left;">Члены кооператива путем паевых взносов</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Есть ли минимальный капитал?</strong></td>
+<td style="text-align: left;">Нет</td>
+<td style="text-align: left;">Нет</td>
+<td style="text-align: left;">Нет</td>
+<td style="text-align: left;">Да, €10 000 (с 2024 года, FlexKapG также €10 000)</td>
+<td style="text-align: left;">Да, €70 000 (для SE: €120 000)</td>
+<td style="text-align: left;">Нет</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Кто отвечает по долгам предприятия?</strong></td>
+<td style="text-align: left;">Лично предприниматель — неограниченно всем имуществом</td>
+<td style="text-align: left;">Все участники лично, неограниченно и солидарно</td>
+<td style="text-align: left;">Комплементарии лично и неограниченно; коммандитисты — только в пределах вклада</td>
+<td style="text-align: left;">Никто лично; риски ограничены уставным вкладом в GmbH</td>
+<td style="text-align: left;">Никто лично; риски ограничены стоимостью купленных акций</td>
+<td style="text-align: left;">Члены кооператива своим паем (как правило, в двойном размере)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Как привлечь доп. (собственный) капитал?</strong></td>
+<td style="text-align: left;">Внесение средств самим владельцем</td>
+<td style="text-align: left;">Вклады действующих участников</td>
+<td style="text-align: left;">Увеличение вкладов или привлечение новых коммандитистов</td>
+<td style="text-align: left;">Увеличение вкладов или прием новых участников</td>
+<td style="text-align: left;">Выпуск (эмиссия) новых акций на фондовом рынке</td>
+<td style="text-align: left;">Прием новых членов кооператива</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="33-wie-unternehmen-finanzielle-mittel-aufbringen">3.3 Как предприятия привлекают финансовые средства (Wie Unternehmen finanzielle Mittel aufbringen)</h2>
+<p>Финансирование необходимо компаниям как на этапе создания, так и в процессе текущей деятельности.</p>
+<ul>
+<li><strong>Долгосрочная потребность в капитале</strong>: Инвестиции (Investitionen) в основные фонды (здания, оборудование, автопарк, IT-инфраструктура).</li>
+<li><strong>Краткосрочная потребность в капитале</strong>: Текущие расходы (оборотный капитал) на закупку сырья и материалов, выплату заработной платы, оплату аренды и энергии до момента получения выручки от продаж.</li>
+</ul>
+<p><img alt="Abbildung 19" src="images/abbildung_19.png" /></p>
+<h3 id="eigen-und-fremdfinanzierung">Собственный и заемный капитал (Eigen- und Fremdfinanzierung)</h3>
+<ol>
+<li>
+<p><strong>Собственный капитал (Eigenkapital)</strong>: Капитал, предоставляемый учредителями (Eigentümer) или акционерами, включая деньги и имущественные вклады (Sacheinlagen).</p>
+<ul>
+<li><em>Свойства</em>: Не подлежит обязательному возврату, находится в распоряжении компании неограниченно долго. Не требует обязательной выплаты процентов (доход выплачивается в виде дивидендов только при наличии прибыли). Наличие высокого собственного капитала укрепляет финансовую устойчивость компании.</li>
+</ul>
+</li>
+<li>
+<p><strong>Заемный капитал (Fremdkapital)</strong>: Средства, привлекаемые от третьих лиц (банков, поставщиков).</p>
+<ul>
+<li><em>Свойства</em>: Предоставляется на определенный срок и подлежит возврату. Требует обязательной уплаты процентов (Zinszahlungen), независимо от финансовых результатов компании. Кредиты (Kredite) — основная форма заемного капитала.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Таблица 3: Сравнение характеристик собственного и заемного капитала (Merkmale von Eigen- und Fremdkapital)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Критерий сравнения</th>
+<th style="text-align: left;">Собственный капитал (Eigenkapital)</th>
+<th style="text-align: left;">Заемный капитал (Fremdkapital)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>На какой срок предоставляется?</strong></td>
+<td style="text-align: left;">Долгосрочно, как правило, бессрочно (не подлежит возврату)</td>
+<td style="text-align: left;">Краткосрочно или долгосрочно, строго на согласованный срок</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Какова плата за капитал?</strong></td>
+<td style="text-align: left;">При наличии прибыли — дивиденды (выплата не гарантирована)</td>
+<td style="text-align: left;">Обязательная уплата процентов (Zinsen), сам капитал подлежит возврату</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Есть ли право голоса / участия в управлении?</strong></td>
+<td style="text-align: left;">Да, в разной степени в зависимости от правовой формы</td>
+<td style="text-align: left;">Нет, кредиторы не имеют права вмешиваться в управление компанией</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Есть ли обеспечение возврата средств?</strong></td>
+<td style="text-align: left;">Нет, риски полностью лежат на собственниках</td>
+<td style="text-align: left;">Да, если предоставлен залог или иное обеспечение (залог имущества, поручительство)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">Краткосрочное финансирование за счет поставщиков</h3>
+<p>Важным источником заемного капитала в текущей деятельности являются поставщики при продаже товаров «под расчет» / в кредит (покупка в рассрочку — <strong>«auf Ziel»</strong>).</p>
+<ul>
+<li><strong>Обязательства по поставкам и услугам (Lieferverbindlichkeiten)</strong>: возникают, когда поставщик предоставляет отсрочку платежа (например, 30 дней).</li>
+<li><strong>Сконто (Skonto)</strong>: скидка, предоставляемая за быструю оплату счета (например, скидка 2% при оплате в течение 7 дней вместо 30). Отказ от сконто ради использования полного срока отсрочки фактически означает привлечение дорогого кредита от поставщика под очень высокий эффективный процент. Часто в такой ситуации выгоднее взять краткосрочный кредит в банке (овердрафт по счету) для оплаты счета со скидкой сконто.</li>
+</ul>
+<hr />
+<h3 id="innen-und-auenfinanzierung">Внутреннее и внешнее финансирование (Innen- und Außenfinanzierung)</h3>
+<h4 id="1-innenfinanzierung">1. Внутреннее финансирование (Innenfinanzierung)</h4>
+<p>Источником средств является выручка от продаж самого предприятия.</p>
+<ul>
+<li>
+<p><strong>Самофинансирование (Selbstfinanzierung)</strong>: Удержание и реинвестирование полученной прибыли ( Einbehalten von Gewinnen). Это увеличивает собственный капитал предприятия и делает его более устойчивым к кризисам:</p>
+<ul>
+<li>Снижается зависимость от банков.</li>
+<li>Отсутствуют процентные расходы.</li>
+<li>Накопленный капитал позволяет покрывать возможные убытки прошлых лет без риска банкротства.</li>
+</ul>
+</li>
+<li>
+<p><strong>Финансирование за счет амортизационных отчислений (Abschreibungsfinanzierung)</strong>:</p>
+</li>
+</ul>
+<div class="callout callout-note"><div class="callout-title">📘 Амортизация (Abschreibung)</div><div class="callout-content">Отражает постепенный износ и потерю стоимости оборудования, зданий, компьютеров в процессе эксплуатации. Сумма износа закладывается в цену готового продукта как расход (Aufwand), уменьшая бухгалтерскую прибыль. Однако амортизация не означает реального оттока денежных средств из компании.
+Вырученные деньги накапливаются внутри компании и могут быть временно использованы для других инвестиций до тех пор, пока не потребуется замена оборудования.</div></div>
+<ul>
+<li><strong>Финансирование за счет оценочных обязательств / резервов (Rückstellungsfinanzierung)</strong>:</li>
+</ul>
+<div class="callout callout-note"><div class="callout-title">📘 Резервы под будущие обязательства (Rückstellungen)</div><div class="callout-content">Создаются в бухгалтерском учете под возможные будущие расходы, точные сроки или суммы которых пока не определены (расходы на судебные процессы, выплату будущих пенсий сотрудникам, неиспользованные отпуска).
+Создание резерва признается расходом текущего периода и уменьшает прибыль, но реальной выплаты денег в этот момент не происходит. Денежные средства остаются в распоряжении компании на долгое время (например, пенсионные резервы — на 20–30 лет) и выступают источником финансирования.</div></div>
+<h4 id="2-auenfinanzierung">2. Внешнее финансирование (Außenfinanzierung)</h4>
+<p>Капитал поступает в компанию из внешних источников.</p>
+<ul>
+<li>
+<p><strong>Долевое внешнее финансирование</strong>: Вклады собственников (Einlagenfinanzierung). В GmbH это дополнительные вклады учредителей. В AG — выпуск новых акций (<strong>эмиссия акций — Emission</strong>). </p>
+<ul>
+<li><em>Акция</em>: ценная бумага (Wertpapier), подтверждающая долю инвестора в уставном капитале AG и дающая право на получение части прибыли (дивидендов) и участие в голосовании. Цена акции на рынке называется ее <strong>курсом (Kurs)</strong>. При увеличении капитала (<strong>капиталоувеличении — Kapitalerhöhung</strong>) действующие акционеры получают преимущественное право на покупку новых акций (<strong>право подписки — Bezugsrecht</strong>), чтобы сохранить свою долю участия.</li>
+</ul>
+</li>
+<li>
+<p><strong>Заемное внешнее финансирование</strong>: Кредиты банков или выпуск облигаций.</p>
+<ul>
+<li><strong>Облигации (Anleihen / Schuldverschreibungen / Renten / Bonds)</strong>:</li>
+</ul>
+</li>
+</ul>
+<div class="callout callout-note"><div class="callout-title">📘 Определение / Понятие</div><div class="callout-content">Облигация — это долговая ценная бумага, подтверждающая право ее владельца (кредитора) получить от эмитента (заемщика — крупной компании или государства) в установленный срок номинальную стоимость облигации и фиксированный или плавающий процент за пользование средствами.</div></div>
+<p>Большие суммы сложно получить в виде одного кредита в банке, поэтому крупный заем (<strong>номинал облигации — Anleihenominale</strong>) дробится на мелкие доли (<strong>номинал одной бумаги / номинал выпуска — Stückelung</strong>), которые распродаются множеству инвесторов на фондовом рынке. Цена облигации на бирже называется ее <strong>курсом</strong>. В конце срока облигация погашается (<strong>tilgen</strong>) по номинальной стоимости.
+Процент по облигации может быть фиксированным или плавающим (например, привязанным к ставке Euribor). Облигации с плавающей ставкой называют <strong>флоатерами (Floater)</strong>.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Euribor (Euro Interbank Offered Rate)</div><div class="callout-content">Средневзвешенная процентная ставка, по которой первоклассные европейские банки предоставляют друг другу краткосрочные необеспеченные кредиты в евро. Служит базовой процентной ставкой (Basiszinssatz) для многих финансовых инструментов.</div></div>
+<hr />
+<h2 id="34-welche-fragen-das-rechnungswesen-beantwortet">3.4 На какие вопросы отвечает бухгалтерский учет и отчетность (Welche Fragen das Rechnungswesen beantwortet)</h2>
+<p>Бухгалтерский учет (Rechnungswesen) отражает все хозяйственные операции компании. Основные направления представлены в таблице:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Вопрос</th>
+<th style="text-align: left;">Направление бухгалтерского учета</th>
+<th style="text-align: left;">Содержание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Достаточно ли у компании денег для текущих платежей, есть ли дефицит средств?</strong></td>
+<td style="text-align: left;"><strong>Финансовый учет / Финансовое планирование (Finanzrechnung)</strong></td>
+<td style="text-align: left;">Финансовые планы (бюджеты), расчет денежных потоков (Cashflow).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Каким имуществом владеет компания и как оно профинансировано? Получена ли прибыль или убыток за период?</strong></td>
+<td style="text-align: left;"><strong>Бухгалтерский учет (Buchhaltung / externes Rechnungswesen)</strong></td>
+<td style="text-align: left;">Составление Баланса (Bilanz) и Отчета о финансовых результатах (Gewinn- und Verlustrechnung, G&amp;V).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Сколько стоит производство единицы продукции? Каков вклад каждого продукта в покрытие постоянных затрат?</strong></td>
+<td style="text-align: left;"><strong>Учет затрат / Калькуляция (Kostenrechnung / internes Rechnungswesen)</strong></td>
+<td style="text-align: left;">Расчет себестоимости продукции, маржинальный анализ (Deckungsbeitragsrechnung).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="1-finanzrechnung">1. Финансовый учет (Finanzrechnung)</h3>
+<p>Обеспечивает контроль за платежеспособностью (<strong>ликвидностью — Liquidität</strong>) компании. Фирма должна быть способна своевременно оплачивать все счета. Потеря платежеспособности ведет к банкротству (Insolvenz).</p>
+<p>Для контроля ликвидности составляется <strong>Финансовый план / Бюджет (Finanzplan / Budget)</strong>:</p>
+<ul>
+<li>Сопоставляются запланированные <strong>поступления денежных средств (Einzahlungen, EZ)</strong> и <strong>выплаты денежных средств (Auszahlungen, AZ)</strong> за определенный период (например, за месяц).</li>
+<li><em>Разница между поступлениями и выплатами</em>:<ul>
+<li><strong>Притоки (EZ) &gt; Вытоков (AZ)</strong>: положительный результат, компания сохраняет ликвидность. Избыток средств можно выгодно инвестировать.</li>
+<li><strong>Вытоки (AZ) &gt; Притоков (EZ)</strong>: возникает дефицит средств. Требуются срочные меры (сокращение расходов, отсрочка платежей поставщикам, сокращение запасов, привлечение кредита овердрафт или взносов от собственников).</li>
+</ul>
+</li>
+</ul>
+<div class="callout callout-warning"><div class="callout-title">⚠️ Разница между кассовым методом и методом начисления</div><div class="callout-content">Понятия «поступление/выплата» (Einzahlung/Auszahlung) в финансовом планировании строго привязаны к движению живых денег на счетах или в кассе. Они не совпадают с понятиями доходов и расходов (Ertrag/Aufwand) в отчетности, которые начисляются в момент совершения сделки, независимо от фактической даты оплаты (например, амортизация признается расходом, но не сопровождается выплатой денег).</div></div>
+<p>Разница между поступлениями и выплатами за период формирует <strong>денежный поток (Cashflow)</strong>. Положительный Cashflow свидетельствует о способности компании генерировать средства для развития и возврата долгов.</p>
+<hr />
+<h3 id="2-buchhaltung">2. Бухгалтерский учет (Buchhaltung)</h3>
+<p>Каждое предприятие обязано вести учет операций для определения финансового результата и расчета налогов. Бухгалтерский учет называют <strong>внешним (externes Rechnungswesen)</strong>, так как он предоставляет информацию внешним пользователям: налоговой службе, банкам, инвесторам (акционерам), поставщикам и сотрудникам.</p>
+<p>В зависимости от формы и размера бизнеса отчетность ведется в виде:</p>
+<ul>
+<li><strong>Учета доходов и расходов (Einnahmen-Ausgaben-Rechnung, EAR)</strong>: простая форма учета по кассовому методу. Разрешена для индивидуальных предпринимателей и товариществ с годовым оборотом менее <strong>€700 000</strong>.</li>
+<li><strong>Двойной бухгалтерии (doppelte Buchhaltung)</strong>: сложная система учета методом начисления. Обязательна для всех корпораций (GmbH, AG), а также для ИП и товариществ, превысивших лимит оборота в €700 000. Включает составление Баланса (Bilanz) и Отчета о финансовых результатах (Gewinn- und Verlustrechnung, G&amp;V). Крупные компании обязаны публиковать отчетность в Коммерческом регистре.</li>
+</ul>
+<hr />
+<h3 id="die-bilanz">Баланс (Die Bilanz)</h3>
+<p>Баланс отражает состояние активов и капитала компании на определенный момент времени (обычно на 31 декабря).</p>
+<div class="callout callout-note"><div class="callout-title">📘 Структура Баланса</div><div class="callout-content">Баланс состоит из двух частей, суммы которых должны быть равны (балансовое равенство):
+<ol>
+<li><strong>Актив (Aktiva / Vermögen)</strong>: левая сторона баланса. Показывает, <strong>во что вложены средства</strong> (использование средств — <em>Mittelverwendung</em>). Называется дебетовой стороной (Sollseite).</li>
+<li><strong>Пассив (Passiva / Kapital)</strong>: правая сторона баланса. Показывает, <strong>откуда привлечены средства</strong> (источники финансирования — <em>Mittelherkunft</em>). Называется кредитовой стороной (Habenseite).</li>
+</ol></div></div>
+<pre><code>          АКТИВ (Aktiva / Vermögen)                  ПАССИВ (Passiva / Kapital)
+   [Использование средств (Soll / Wofür)]       [Источники средств (Haben / Woher)]
+  +---------------------------------------+    +------------------------------------+
+  | А. Внеоборотные активы                |    | А. Собственный капитал             |
+  |    (Anlagevermögen: здания, станки)   |    |    (Eigenkapital: вклады, прибыль) |
+  |                                       |    |                                    |
+  | Б. Оборотные активы                   |    | Б. Заемный капитал                 |
+  |    (Umlaufvermögen: запасы, деньги)   |    |    (Fremdkapital: кредиты, долги)  |
+  +---------------------------------------+    +------------------------------------+
+  | Баланс (Итого активов)                | =  | Баланс (Итого пассивов)            |
+  +---------------------------------------+    +------------------------------------+
+</code></pre>
+<ul>
+<li><strong>Внеоборотные активы (Anlagevermögen)</strong>: имущество, предназначенное для долгосрочного использования на предприятии (более 1 года). Сюда входят недвижимость (земельные участки, здания), машины и оборудование, лицензии, патенты, а также долгосрочные финансовые вложения.</li>
+<li><strong>Оборотные активы (Umlaufvermögen)</strong>: активы, которые находятся на предприятии временно (менее 1 года) и постоянно меняют свою форму. Сюда входят запасы сырья и готовой продукции (Vorräte), дебиторская задолженность покупателей (Forderungen aus Lieferungen und Leistungen), остатки на банковских счетах и наличные деньги в кассе (Bankguthaben und Barbestand).</li>
+<li><strong>Собственный капитал (Eigenkapital)</strong>: чистые активы владельцев. Рассчитывается как разница между совокупными активами и обязательствами (заемным капиталом). Рост собственного капитала за год отражает полученную прибыль, снижение — убыток (<strong>принцип двойного определения прибыли</strong>).</li>
+<li><strong>Заемный капитал (Fremdkapital)</strong>: обязательства компании перед третьими лицами (кредиты банков, резервы под обязательства, задолженность перед поставщиками).</li>
+<li><strong>Золотое правило баланса (goldene Bilanzregel)</strong>:</li>
+</ul>
+<div class="callout callout-warning"><div class="callout-title">⚠️ Важно</div><div class="callout-content">Внеоборотные активы (активы с долгосрочным связыванием капитала) должны финансироваться за счет долгосрочных пассивов — собственного капитала и долгосрочного заемного капитала.</div></div>
+<hr />
+<h3 id="gewinn-und-verlustrechnung-gv">Отчет о финансовых результатах (Gewinn- und Verlustrechnung, G&amp;V)</h3>
+<p>Отражает доходы и расходы компании за отчетный период (обычно за год). Расходы вычитаются из выручки от продаж (<strong>Umsatzerlöse</strong>).</p>
+<ul>
+<li><em>Расходы включают</em>: затраты на материалы (Materialaufwand), оплату труда персонала (Personalaufwand), амортизацию активов (Abschreibungen), аренду, проценты по кредитам, налоги.</li>
+<li><strong>EBIT (Earnings Before Interest and Taxes)</strong>: операционный результат компании (Ergebnis vor Zinsen und Steuern) до вычета процентов по кредитам и налогов.</li>
+<li><strong>Финансовый результат (Finanzergebnis)</strong>: разница между финансовыми доходами (проценты по вкладам) и расходами (проценты по кредитам).</li>
+<li><strong>Чистая прибыль (Jahresergebnis / Gewinn)</strong>: итоговый финансовый результат после уплаты всех расходов, процентов и налогов.</li>
+</ul>
+<hr />
+<h3 id="cashflowrechnung">Отчет о движении денежных средств (Cashflowrechnung)</h3>
+<p>Дополняет Баланс и G&amp;V, показывая реальные изменения денежных средств. Отчет разбит на три раздела:</p>
+<ol>
+<li><strong>Денежный поток от операционной деятельности (Cashflow aus der Betriebstätigkeit / Operating Cashflow)</strong>: Движение средств по основной деятельности компании. Показывает, зарабатывает ли бизнес деньги на своем продукте. Ключевой показатель для инвесторов.</li>
+<li><strong>Денежный поток от инвестиционной деятельности (Cashflow aus der Investitionstätigkeit / Investing Cashflow)</strong>: Затраты на приобретение оборудования, недвижимости или доходы от их продажи. Обычно этот показатель отрицательный у растущих компаний.</li>
+<li><strong>Денежный поток от финансовой деятельности (Cashflow aus der Finanzierungstätigkeit / Financing Cashflow)</strong>: Привлечение акционерного капитала, получение или возврат кредитов, выплата дивидендов.</li>
+</ol>
+<hr />
+<h3 id="3-kostenrechnung-internes-rechnungswesen">3. Учет затрат (Kostenrechnung / internes Rechnungswesen)</h3>
+<p>Используется внутри компании для управленческих решений (расчет себестоимости единицы товара, ценообразование, контроль эффективности подразделений). Ведение учета затрат не требуется по закону, но необходимо для управления бизнесом.</p>
+<p>Затраты (<strong>Kosten</strong>) представляют собой оцененное в денежной форме потребление ресурсов для достижения целей компании.</p>
+<ul>
+<li><em>Отличие затрат от расходов</em>: Учет затрат включает <strong>вмененные издержки (kalkulatorische Kosten)</strong>, которые отсутствуют в обычной бухгалтерии. Например, <strong>вмененный доход предпринимателя (kalkulatorischer Unternehmerlohn)</strong> — гипотетическая зарплата индивидуального предпринимателя или партнеров в OG, которую они могли бы получать, работая по найму в другом месте (альтернативные издержки их труда).</li>
+</ul>
+<h4 id="_4">Классификация затрат</h4>
+<ul>
+<li><strong>Постоянные затраты (fixe Kosten)</strong>: Не зависят от объема производства (аренда цеха, зарплата руководства, страховка, линейная амортизация оборудования).</li>
+<li><strong>Переменные затраты (variable Kosten)</strong>: Растут или снижаются пропорционально объему выпуска продукции (сырье, материалы, детали для сборки велосипеда).</li>
+</ul>
+<h4 id="_5">Маржинальный анализ и точка безубыточности</h4>
+<p>Для анализа покрытия затрат используется <strong>маржинальный доход / вклад на покрытие (Deckungsbeitrag, DB)</strong>:</p>
+<div class="math">$$\text{Deckungsbeitrag (DB)} = \text{Цена продажи} - \text{Переменные затраты на единицу}$$</div>
+
+<p>Маржинальный доход показывает, сколько средств от продажи одной единицы товара идет на покрытие постоянных затрат компании и формирование прибыли.</p>
+<ul>
+<li>
+<p><strong>Доля маржинального дохода / коэффициент покрытия (Deckungsquote)</strong>: отношение маржинального дохода к цене продажи (в процентах).</p>
+<div class="math">$$\text{Deckungsquote (\%)} = \frac{\text{Deckungsbeitrag (DB)}}{\text{Preis}} \times 100$$</div>
+</li>
+</ul>
+<div class="callout callout-note"><div class="callout-title">📘 Точка безубыточности (Break-even Point / порог рентабельности)</div><div class="callout-content">Объем продаж (в штуках или в денежном выражении), при котором совокупная выручка компании в точности равна ее совокупным затратам (прибыль равна нулю). Начиная с этой точки компания начинает получать прибыль.</div></div>
+<p>Формула расчета выручки в точке безубыточности (<strong>Break-even Umsatz</strong>):</p>
+<div class="math">$$\text{Break-even Umsatz} = \frac{\text{Постоянные затраты (Fixkosten)}}{\text{Коэффициент покрытия (Deckungsquote)}} \times 100$$</div>
+
+<ul>
+<li>
+<p><em>Пример</em>: Фирма выпускает велосипеды ценой €400. Переменные затраты на один велосипед равны €180.</p>
+<ul>
+<li>
+<p>Маржинальный доход (DB) на единицу товара:
+    <div class="math">$$\text{Deckungsbeitrag (DB)} = 400 - 180 = \text{€}220$$</div></p>
+</li>
+<li>
+<p>Коэффициент покрытия (Deckungsquote):
+    <div class="math">$$\text{Deckungsquote} = \frac{220}{400} \times 100 = 55\%$$</div></p>
+</li>
+<li>
+<p>Если постоянные затраты фирмы составляют €4 млн, то для достижения точки безубыточности требуется оборот:
+    <div class="math">$$\text{Break-even Umsatz} = \frac{4\,000\,000}{55} \times 100 \approx \text{€}7\,272\,727$$</div>
+Для покрытия всех затрат компания должна сделать оборот не менее €7,3 млн.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="35-marketing-kein-erfolg-ohne-marktorientierung">3.5 Маркетинг — нет успеха без ориентации на рынок (Marketing — kein Erfolg ohne Marktorientierung)</h2>
+<p>Ориентация на рынок имеет решающее значение. Выпуск продукции, которая не находит спроса («производство мимо рынка»), ведет к убыткам и банкротству.</p>
+<div class="callout callout-note"><div class="callout-title">📘 Что такое маркетинг? (Was ist Marketing?)</div><div class="callout-content">Маркетинг — это не просто реклама. Это систематическая ориентация всего предприятия (всех его отделов и процессов) и его продуктового предложения на удовлетворение потребностей и желаний клиентов.</div></div>
+<p>Задачи маркетинга:</p>
+<ol>
+<li>Выявить текущие и будущие потребности покупателей.</li>
+<li>Спланировать соответствующее предложение компании.</li>
+<li>Донести информацию о ценности предложения до клиентов (<strong>коммуникация</strong>).</li>
+<li>Установить цену, которую клиенты готовы и могут заплатить.</li>
+<li>Организовать доставку товара в нужное место и в нужное время (<strong>распределение</strong>).</li>
+</ol>
+<p><img alt="Abbildung 20" src="images/abbildung_20.png" /></p>
+<p>Эти четыре направления составляют <strong>Маркетинг-микс (Marketing Mix / 4 Ps)</strong>.</p>
+<p><img alt="Abbildung 21" src="images/abbildung_21.png" /></p>
+<hr />
+<h3 id="-4-ps">Элементы Маркетинг-микса (4 Ps)</h3>
+<pre><code>                                      Маркетинг-микс (4 Ps)
+                                               |
+             +------------------+--------------+------------------+
+             |                  |              |                  |
+         Продукт               Цена          Сбыт             Коммуникации
+        (Product)            (Price)        (Place)           (Promotion)
+</code></pre>
+<h4 id="1-produktpolitik-product">1. Товарная политика (Produktpolitik / PRODUCT)</h4>
+<p>Определяет ассортимент товаров (Produktprogramm / Sortiment), дизайн продуктов, упаковку, бренд и послепродажное обслуживание. </p>
+<ul>
+<li>В маркетинге под <strong>«продуктом»</strong> понимаются не только физические товары (велосипед, пакет сахара), но и услуги (фитнес-клуб, консалтинг), идеи, организации, бренды, персоны и даже регионы или страны.</li>
+</ul>
+<p><strong>Таблица 6: Основная и дополнительная полезность продукта (Grund- und Zusatznutzen eines Produkts)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Вид полезности (Nutzen)</th>
+<th style="text-align: left;">Сущность</th>
+<th style="text-align: left;">Пример (на примере велосипеда)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Основная полезность (Grundnutzen)</strong></td>
+<td style="text-align: left;">Первичная цель / базовое функциональное назначение продукта</td>
+<td style="text-align: left;">Езда, перемещение из точки А в точку Б</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Дополнительная полезность (Zusatznutzen)</strong></td>
+<td style="text-align: left;">Дополнительная ценность, выходящая за рамки базовых функций</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">*   <em>Эстетическая/эмоциональная полезность (Erlebnisnutzen)</em></td>
+<td style="text-align: left;">Удовольствие, радость от использования продукта, чувство безопасности</td>
+<td style="text-align: left;">Приятные ощущения от езды, уверенность в надежности и безопасности велосипеда</td>
+</tr>
+<tr>
+<td style="text-align: left;">*   <em>Социальная полезность (Geltungsnutzen)</em></td>
+<td style="text-align: left;">Престиж, статус, признание со стороны окружающих</td>
+<td style="text-align: left;">Престиж владения известным и дорогим брендом (например, велосипедом woom)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="produktlebenszyklus">Жизненный цикл продукта (Produktlebenszyklus)</h4>
+<p>Большинство товаров проходят на рынке определенные стадии развития:</p>
+<ol>
+<li><strong>Этап внедрения (Einführungsphase)</strong>: Выпуск нового товара. Продажи растут медленно из-за слабой осведомленности клиентов. Высокие затраты на продвижение и разработку ведут к тому, что прибыль появляется только к концу этапа. При неудаче продукт уходит с рынка.</li>
+<li><strong>Этап роста (Wachstumsphase)</strong>: Быстрый рост продаж и прибыли. Продуктом начинают интересоваться конкуренты, появляются первые аналоги. Важна ценовая политика для удержания доли.</li>
+<li><strong>Этап зрелости (Reifephase)</strong>: Объем продаж достигает максимума. Однако прибыль начинает снижаться из-за обострения конкуренции и роста затрат на рекламу, скидки и акции.</li>
+<li><strong>Этап насыщения (Sättigungsphase)</strong>: Продажи и прибыль падают. Рынок сжимается. Компания должна принять решение: перезапустить продукт с изменениями (<strong>релонч — Relaunch</strong>) или вывести его из ассортимента.</li>
+<li><strong>Этап спада / дегенерации (Degenerationsphase)</strong>: Продукт приносится в жертву из-за чрезмерных затрат и падения спроса.</li>
+</ol>
+<p><img alt="Abbildung 25" src="images/abbildung_25.png" /></p>
+<h4 id="_6">Меры товарной политики</h4>
+<ul>
+<li><strong>Инновация продукта (Produktinnovation)</strong>: разработка нового товара. Может вести к углублению ассортимента (<strong>дифференциация — Produktdifferenzierung</strong>, например, выпуск новых моделей велосипедов) или его расширению (<strong>диверсификация — Produktdiversifikation</strong>, например, woom начинает выпускать спортивную одежду или шлемы).</li>
+<li><strong>Модификация продукта (Produktvariation)</strong>: изменение характеристик существующего товара (старая версия при этом снимается с производства).</li>
+<li><strong>Элиминация продукта (Produktelimination)</strong>: снятие устаревшего или нерентабельного товара с производства.</li>
+</ul>
+<hr />
+<h4 id="2-preispolitik-price">2. Ценовая политика (Preispolitik / PRICE)</h4>
+<p>Определяет уровень цен, систему скидок, условия оплаты и доставки. Цена должна покрывать затраты предприятия и соответствовать ценности продукта в глазах покупателя.
+<img alt="Abbildung 27" src="images/abbildung_27.png" /></p>
+<ul>
+<li>
+<p><strong>Факторы ценообразования (три кита ценообразования)</strong>:</p>
+<ol>
+<li><em>Затраты (Kosten)</em>: нижняя граница цены (себестоимость).</li>
+<li><em>Цены конкурентов (Preise der Konkurrenz)</em>: ориентир на рынке.</li>
+<li><em>Готовность клиентов платить (Запрашиваемый объем спроса)</em>: верхняя граница цены.</li>
+</ol>
+</li>
+<li>
+<p>Различают политику высоких цен (высокое качество, сильный бренд, USP) и политику низких цен / дисконтную политику.</p>
+</li>
+<li><strong>Нерациональное поведение покупателей</strong>:<ul>
+<li><em>Эффект сноба (Snob-Effekt)</em>: покупка дорогого товара с целью демонстрации своего превосходства и статуса.</li>
+<li><em>Эффект присоединения к большинству (Mitläufer-Effekt)</em>: покупка товара вслед за другими («эффект толпы»).</li>
+<li><em>Эффект качества (Qualitätseffekt)</em>: подсознательная оценка дорогого товара как более качественного по сравнению с дешевым.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4 id="3-distributionspolitik-place">3. Сбытовая политика (Distributionspolitik / PLACE)</h4>
+<p>Определяет пути движения товара от производителя к конечному клиенту (каналы распределения).</p>
+<ul>
+<li><strong>Прямой сбыт (direkter Absatz)</strong>: Производитель продает товар напрямую конечному потребителю (через собственный интернет-магазин, фирменные филиалы, отдел продаж завода).</li>
+<li><strong>Косвенный сбыт (indirekter Absatz)</strong>: В цепочку продаж включаются посредники — оптовые торговцы (Großhändler) и розничные магазины (Einzelhändler).</li>
+<li><strong>Франчайзинг (Franchising)</strong>: Особая форма сбыта, при которой правообладатель (<strong>франчайзер</strong>) передает независимому предпринимателю (<strong>франчайзи</strong>) за плату право использовать свою торговую марку, продукты и готовую бизнес-модель/маркетинговую концепцию (например, McDonald's). Франчайзи юридически независим, но обязан соблюдать стандарты сети.</li>
+</ul>
+<hr />
+<h4 id="4-kommunikationspolitik-promotion">4. Коммуникационная политика (Kommunikationspolitik / PROMOTION)</h4>
+<p>Инструменты информирования и убеждения клиентов. Включает:</p>
+<ul>
+<li><strong>Классическую рекламу (Werbung)</strong>: размещение объявлений в СМИ, роликов на ТВ и радио, наружной рекламы (плакаты, тумбы), рекламы в интернете.</li>
+</ul>
+<p><strong>Таблица 7: Классические средства и носители рекламы (Wesentliche klassische Werbemittel und Werbeträger)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Рекламные средства / Материал (Werbemittel)</th>
+<th style="text-align: left;">Рекламоносители / Канал распространения (Werbeträger)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Объявления, макеты (Anzeigen / Inserate)</strong></td>
+<td style="text-align: left;">Ежедневные и еженедельные газеты, иллюстрированные журналы, специализированные издания, программы мероприятий и т.д.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Теле- и радиоролики (TV-Spots, Radiospots)</strong></td>
+<td style="text-align: left;">Телевидение, радиовещание</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Рекламные ролики и фильмы (Werbefilme)</strong></td>
+<td style="text-align: left;">Кинотеатры, театры, концертные и выставочные залы и т.д.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Плакаты, афиши, рекламные щиты (Plakate, Werbetafeln)</strong></td>
+<td style="text-align: left;">Билборды, рекламные тумбы, остановки, общественный транспорт, спортивные арены и т.д.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Рекламные письма, листовки, брошюры, каталоги</strong></td>
+<td style="text-align: left;">Почта, курьерские службы доставки, раздача на мероприятиях, вкладыши в прессу и т.д.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Баннеры, блоги, сообщения, сайты, форумы</strong></td>
+<td style="text-align: left;">Социальные сети (Facebook, Instagram, YouTube, Twitter и т.д.)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Стимулирование сбыта (Verkaufsförderung)</strong>: краткосрочные акции, купоны, скидки, дегустации.</li>
+<li><strong>Личные продажи (Personal Selling)</strong>: непосредственное общение продавца с покупателем (консультации в торговом зале).</li>
+<li><strong>Связи с общественностью (Public Relations, PR)</strong>: формирование положительного имиджа компании в обществе (пресс-конференции, спонсорство, пресс-релизы).</li>
+<li><strong>Связи с инвесторами (Investor Relations)</strong>: информирование акционеров и финансовых рынков.</li>
+<li><strong>Социальные медиа (Social-Media-Marketing, SMM)</strong>: продвижение бренда через социальные сети.</li>
+<li><strong>Событийный маркетинг (Event Marketing)</strong>: организация ярких мероприятий (выставки, показы мод, открытия филиалов, спортивные праздники) для эмоционального вовлечения клиентов.</li>
+</ul>
+<hr />
+<h3 id="marktkennzahlen">Аналитические показатели рынка (Marktkennzahlen)</h3>
+<div class="callout callout-note"><div class="callout-title">📘 Определение рынка в маркетинге</div><div class="callout-content">Это совокупность людей и/или предприятий, которые испытывают потребность, способную быть удовлетворенной с помощью предлагаемого компанией продукта.</div></div>
+<p>Рынок характеризуется тремя основными показателями:</p>
+<ol>
+<li><strong>Рыночный потенциал (Marktpotenzial)</strong>: Максимально возможный объем продаж определенного товара на рынке при идеальных условиях (если бы все потенциальные покупатели совершили покупку).</li>
+<li><strong>Рыночный объем (Marktvolumen)</strong>: Фактический совокупный объем продаж данного товара всеми производителями на рынке за определенный период.</li>
+<li>
+<p><strong>Доля рынка (Marktanteil)</strong>: Доля продаж конкретного предприятия в общем рыночном объеме (в процентах).</p>
+</li>
+<li>
+<p><strong>Абсолютная доля рынка (absoluter Marktanteil)</strong>:
+    <div class="math">$$\text{Absoluter Marktanteil (\%)} = \frac{\text{Umsatz des eigenen Unternehmens (Выручка компании)}}{\text{Marktvolumen (Общий объем рынка)}} \times 100$$</div></p>
+</li>
+<li>
+<p><strong>Относительная доля рынка (relativer Marktanteil)</strong>: сопоставляет выручку компании с выручкой ее крупнейшего конкурента:
+    <div class="math">$$\text{Relativer Marktanteil} = \frac{\text{Umsatz des eigenen Unternehmens (Выручка компании)}}{\text{Umsatz des stärksten Konkurrenten (Выручка крупнейшего конкурента)}}$$</div>
+    Если относительная доля рынка <strong>больше 1</strong>, компания является лидером рынка (Marktführer).</p>
+</li>
+</ol>
+<p><img alt="Abbildung 22" src="images/abbildung_22.png" /></p>
+<hr />
+<h3 id="marktsegmentierung">Сегментация рынка (Marktsegmentierung)</h3>
+<p>Покупатели имеют разные потребности. Поэтому рынок делится на группы со схожими характеристиками (<strong>целевые аудитории / сегменты — Zielgruppen</strong>): по возрасту, доходу, привычкам потребления.
+Процесс включает три этапа:</p>
+<p><img alt="Abbildung 23" src="images/abbildung_23.png" /></p>
+<p><img alt="Abbildung 24" src="images/abbildung_24.png" /></p>
+<ol>
+<li><strong>Сегментирование (Segmentieren)</strong>: разделение рынка на группы по выбранным критериям.</li>
+<li><strong>Определение целевого рынка (Zielmarkt festlegen)</strong>: выбор сегментов, на которых компания сфокусирует свои усилия.</li>
+<li><strong>Позиционирование (Positionieren)</strong>: создание уникального образа продукта в сознании целевой аудитории.</li>
+</ol>
+<div class="callout callout-note"><div class="callout-title">📘 Уникальное торговое предложение (Unique Selling Proposition, USP)</div><div class="callout-content">Ключевое преимущество продукта, отличающее его от предложений конкурентов. Для <em>woom</em> это «высококачественные велосипеды, идеально адаптированные для детей и имеющие долгий срок службы».</div></div>
+<hr />
+<h3 id="prufungsfallen-3">🎓 Разбор экзаменационных вопросов и ловушек (Prüfungsfallen) по Главе 3</h3>
+<div class="callout callout-warning"><div class="callout-title">⚠️ Ловушка 1: Влияние операций на Cashflow (На примере Aufgabe 1)</div><div class="callout-content">Предприятие (например, <em>FunBike GmbH</em>) хочет быстро увеличить краткосрочный Cashflow.
+<ul>
+<li><strong>Верно</strong>: взять банковский кредит (<strong>a: nimmt einen Bankkredit auf</strong>) — это приток средств от финансовой деятельности (Einzahlung).</li>
+<li><strong>Верно</strong>: принять нового партнера с денежным вкладом (<strong>d: nimmt einen Gesellschafter mit Kapitaleinlage auf</strong>) — это приток капитала (Einzahlung).</li>
+<li><strong>Верно</strong>: отменить отсрочку платежей клиентам, заставив платить сразу (<strong>e: gewährt kein Zahlungsziel mehr</strong>) — ускоряет притоки (EZ).</li>
+<li><strong>НЕВЕРНО (категориальная ловушка)</strong>: «emittiert Aktien» (<strong>c</strong>). Владелец — <strong>GmbH</strong> (общество с ограниченной ответственностью), а не AG. ООО не имеет акций и не может их выпускать! Только AG выпускает акции.</li>
+<li><strong>НЕВЕРНО</strong>: покупка станка за €50 000 вместо его аренды за €1 000/месяц (<strong>b</strong>). В краткосрочной перспективе покупка приведет к оттоку €50 000, что снизит Cashflow (даже с учетом экономии на аренде).</li>
+</ul>
+<p><strong>Ловушка 2: Структура и анализ баланса (На примере Aufgabe 2)</strong></p>
+<ul>
+<li><strong>Активы и капитал (Aktivtausch)</strong>: Покупка акций другого предприятия за счет денежных средств на счете с целью долгосрочного владения (Finanzanlagen) — это <strong>активный обмен (Aktivtausch)</strong>. Активы (ценные бумаги) выросли, активы (деньги) снизились. Валюта баланса и собственный капитал (Eigenkapital) НЕ меняются.</li>
+<li><strong>Связь кредиторской задолженности</strong>: Наличие статьи «Verbindlichkeiten aus Lieferungen und Leistungen» (например, €300 000) доказывает, что компания использует отсрочки платежей, т.е. покупает товары «auf Ziel», а <strong>не оплачивает все счета мгновенно</strong> (без отсрочки эта позиция равнялась бы 0).</li>
+<li><strong>Ликвидность активов</strong>: Статьи актива баланса упорядочены по возрастанию ликвидности. Самой ликвидной позицией (с самым быстрым доступом к деньгам) является <strong>«Bankguthaben und Barbestand»</strong> (деньги в кассе и на счетах).</li>
+</ul>
+<p><strong>Ловушка 3: Акции (Aktien) vs. Облигации (Anleihen) (На примере Aufgabe 10)</strong></p>
+<ul>
+<li><strong>Акции</strong>: долевые ценные бумаги, формирующие собственный капитал (<strong>Eigenkapital</strong>). Срок владения не ограничен (нет даты погашения). Выплата дивидендов не гарантирована и зависит от прибыли.</li>
+<li><strong>Облигации</strong>: долговые ценные бумаги, формирующие заемный капитал (<strong>Fremdkapital</strong>). Имеют конкретный срок погашения (Stichtag zur Rückzahlung). Выплата процентов (<strong>Zinsen</strong>) является обязательной, даже если компания терпит убытки.</li>
+</ul></div></div>
+        </div>
+    </div>
+    
+    <script>
+        // Set active link in sidebar based on current URL filename
+        const filename = window.location.pathname.split("/").pop();
+        if (filename) {
+            const cleanName = filename.split(".")[0];
+            const activeLink = document.getElementById("link-" + cleanName);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        } else {
+            document.getElementById("link-README").classList.add("active");
+        }
+
+        // Reading progress tracker
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        });
+    </script>
+</body>
+</html>
